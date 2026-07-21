@@ -1,0 +1,80 @@
+[
+  {
+    "id": 1,
+    "title": "Borrador Acta sesión CTAR N.° 149",
+    "documentType": "Acta CTAR",
+    "documentDate": "2026-07-15",
+    "status": "Borrador",
+    "summary": "Actualiza el Plan Año 7 a UF 144.538,29; registra 17 bajas prioritarias y formaliza representantes del SSMOC.",
+    "source": "CTAR / IFE",
+    "tags": "CTAR, equipamiento, Plan Año 7",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2026-07-15T12:00:00-04:00"
+  },
+  {
+    "id": 2,
+    "title": "Ord. HFB N.° 1018 - Autoclave 600 litros",
+    "documentType": "Ordinario",
+    "documentDate": "2026-07-20",
+    "status": "Pendiente de respuesta",
+    "summary": "Informa indisponibilidad del equipo N.° 90.015 por fisura en cordón de soldadura y solicita celeridad.",
+    "source": "Hospital Félix Bulnes",
+    "tags": "esterilización, autoclave, EMMC",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2026-07-20T12:00:00-04:00"
+  },
+  {
+    "id": 3,
+    "title": "Oficio CP N.° 15836 - Sistema de climatización",
+    "documentType": "Oficio",
+    "documentDate": "2026-07-02",
+    "status": "En revisión",
+    "summary": "MINSAL requiere a la DGC informar gestiones y evaluar medidas de mitigación mientras se resuelve la causa estructural.",
+    "source": "Subsecretaría de Redes Asistenciales",
+    "tags": "climatización, DGC, mitigación",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2026-07-02T12:00:00-04:00"
+  },
+  {
+    "id": 4,
+    "title": "Ord. HFB N.° 0934 - Solicitud de auditoría externa",
+    "documentType": "Ordinario",
+    "documentDate": "2026-06-30",
+    "status": "En revisión",
+    "summary": "Solicita auditoría técnica externa e independiente al sistema de climatización del Hospital.",
+    "source": "Hospital Félix Bulnes",
+    "tags": "climatización, auditoría externa",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2026-06-30T12:00:00-04:00"
+  },
+  {
+    "id": 5,
+    "title": "Acta CTAR N.° 148 - Plan Año 7",
+    "documentType": "Acta CTAR",
+    "documentDate": "2026-05-15",
+    "status": "Aprobado",
+    "summary": "Aprueba el plan priorizado del séptimo Año de Explotación por UF 136.413,57.",
+    "source": "CTAR",
+    "tags": "CTAR, Plan Año 7, VMA",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2026-05-15T12:00:00-04:00"
+  },
+  {
+    "id": 6,
+    "title": "Bases de Licitación y Anexos HFBC",
+    "documentType": "BALI / Contrato",
+    "documentDate": "2020-04-01",
+    "status": "Aprobado",
+    "summary": "Marco contractual de la etapa de explotación, equipamiento, fondos, subsidios y gobernanza.",
+    "source": "Contrato de Concesión HFBC",
+    "tags": "BALI, contrato, anexos",
+    "fileName": null,
+    "createdBy": "bayron.retamal@redsalud.gob.cl",
+    "createdAt": "2020-04-01T12:00:00-04:00"
+  }
+]
