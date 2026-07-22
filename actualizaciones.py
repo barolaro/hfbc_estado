@@ -13,18 +13,9 @@ def _reemplazar(html: str, anterior: str, nuevo: str) -> str:
 def aplicar_actualizaciones(html: str) -> str:
     """Incorpora antecedentes validados sin modificar el HTML maestro."""
     cambios = [
-        (
-            'data-t="Operación hoy: 9 materias"',
-            'data-t="Operación hoy: 10 materias"',
-        ),
-        (
-            "Nueve Materias Críticas, Todas con Gestión Trazada",
-            "Diez Materias Relevantes, Todas con Gestión Trazada",
-        ),
-        (
-            "actualizado al 20 de julio de 2026.",
-            "actualizado al 22 de julio de 2026.",
-        ),
+        ('data-t="Operación hoy: 9 materias"', 'data-t="Operación hoy: 10 materias"'),
+        ("Nueve Materias Críticas, Todas con Gestión Trazada", "Diez Materias Relevantes, Todas con Gestión Trazada"),
+        ("actualizado al 20 de julio de 2026.", "actualizado al 22 de julio de 2026."),
         (
             '<tr class="fila"><td>Filtraciones agua lluvia</td>',
             '<tr class="fila"><td>Radiocomunicaciones · Antena HF</td><td class="det">Visita técnica recomienda elevar la antena al menos seis metros utilizando los soportes existentes</td><td><span class="pill media">MEDIA</span></td><td><span class="pill gestion">POR FORMALIZAR</span></td><td class="chev">＋</td></tr>\n'
@@ -37,7 +28,11 @@ def aplicar_actualizaciones(html: str) -> str:
         ),
         (
             '<div class="ac-body"><div class="pensar"><b>En otras palabras:</b> es la asignación de inversión de cada año. Existen años de baja exigencia — el Año 7 contempla solo UF 510 — y años de renovación masiva, como el Año 10, que contempla UF 673.575.</div><p>El <b>VMA</b> (Valor Máximo de Adquisición) es el presupuesto tope de cada año para comprar y reponer según el Anexo I. El plan del Año 7 aprobado en el Acta N.° 148 totaliza UF 136.413,57. El <b>borrador del Acta N.° 149</b> lo actualiza a <b>UF 144.538,29</b>, incorporando 42 unidades de mobiliario de hospitalización eléctrico cuya adquisición no debe postergarse. Esta actualización queda sujeta a la aprobación y firma del acta.</p><span class="dato">Acta N.° 148: UF 136.413,57 · Borrador Acta N.° 149: UF 144.538,29</span></div>',
-            '<div class="ac-body"><div class="pensar"><b>En otras palabras:</b> el Anexo I programa límites y necesidades de inversión por año de explotación. El plan anual puede revisarse durante su tramitación, pero solo adquiere carácter definitivo una vez aprobado y formalizado por el CTAR.</div><p>El <b>VMA</b> (Valor Máximo de Adquisición) corresponde al límite contractual programado en el Anexo I. El <b>VMRI</b> (Valor Máximo Revisado de Inversión) refleja el total actualizado del plan anual conforme a las materias revisadas por el Comité. El plan del Año 7 aprobado mediante el Acta N.° 148 totaliza <b>UF 136.413,57</b>. El <b>borrador del Acta N.° 149</b> propone un VMRI de <b>UF 144.538,29</b>, incorporando 42 unidades de mobiliario de hospitalización eléctrico cuya adquisición no debe postergarse. Al 22.07.2026, esta cifra permanece en calidad de borrador y queda sujeta a la aprobación y firma del acta; por tanto, no corresponde presentarla como acuerdo definitivo.</p><span class="dato">Acta N.° 148 aprobada: UF 136.413,57 · Borrador Acta N.° 149: UF 144.538,29 · corte 22.07.2026</span></div>',
+            '<div class="ac-body"><div class="pensar"><b>En otras palabras:</b> el VMRI se mantiene en UF 144.538,29 mientras las 42 camas continúen incorporadas en el plan del séptimo Año de Explotación. Priorizar inicialmente 10 unidades no reduce por sí solo la cantidad total programada.</div><p>El <b>VMA</b> (Valor Máximo de Adquisición) corresponde al límite contractual programado en el Anexo I. El <b>VMRI</b> (Valor Máximo Revisado de Inversión) refleja el total actualizado del plan anual. El plan aprobado mediante el Acta N.° 148 totaliza <b>UF 136.413,57</b>; el <b>borrador del Acta N.° 149</b> propone <b>UF 144.538,29</b> e incorpora 42 camas eléctricas de hospitalización. La propuesta de iniciar la gestión con 10 unidades mantiene las 32 restantes dentro de la programación y no altera el VMRI, siempre que el CTAR no modifique la cantidad total. Si el plan se redujera a solo 10 camas, correspondería recalcular la categoría d); el acta no informa el valor unitario necesario para determinar ese nuevo total. La ejecución por etapas dentro del mismo año requiere confirmación previa del Inspector Fiscal y aprobación del CTAR.</p><span class="dato">42 camas en el plan · inicio propuesto: 10 · saldo programado: 32 · VMRI: UF 144.538,29 · criterio pendiente de validación IF/CTAR</span></div>',
+        ),
+        (
+            '<div class="clave"><div class="n">Plan Año 7</div><p><b>Actualización en revisión:</b> el plan aprobado en el Acta N.° 148 totaliza UF 136.413,57. El borrador del Acta N.° 149 lo eleva a <b>UF 144.538,29</b> al reincorporar 42 unidades de mobiliario de hospitalización eléctrico, señalando que las adquisiciones programadas en el Anexo I no deben postergarse.</p></div>',
+            '<div class="clave"><div class="n">Plan Año 7</div><p><b>Actualización en revisión:</b> el borrador del Acta N.° 149 propone un VMRI de <b>UF 144.538,29</b> e incorpora 42 camas eléctricas. Se plantea iniciar la gestión con 10 unidades, manteniendo las 32 restantes dentro de la programación. El valor se mantiene mientras no se reduzca la cantidad total; la ejecución por etapas debe ser confirmada por el Inspector Fiscal y acordada por el CTAR.</p></div>',
         ),
     ]
 
