@@ -1,30 +1,43 @@
-# Estado de Situación HFBC — Streamlit
+# Estado de Situación HFBC — repositorio oficial
 
-Publica la presentación ejecutiva del Contrato de Concesión del Hospital Clínico
-Félix Bulnes Cerda (SSMOCC) en Streamlit Cloud.
+Repositorio oficial de la presentación ejecutiva del Contrato de Concesión del
+Hospital Dr. Félix Bulnes Cerda, elaborada para el seguimiento institucional del
+Servicio de Salud Metropolitano Occidente.
 
-`app.py` incrusta a pantalla completa el archivo `Estado_Situacion_HFBC.html`,
-que es una presentación autónoma con sus láminas, gráficos (Chart.js) y su propia
-función **"Actualizar presentación"**.
+## Arquitectura
 
-## Archivos
+- `app.py`: publicación y configuración de la aplicación Streamlit.
+- `Estado_Situacion_HFBC.html`: presentación ejecutiva autónoma.
+- `actualizaciones.py`: capa trazable para incorporar nuevos antecedentes sin
+  reconstruir el archivo maestro.
+- `requirements.txt`: dependencias de ejecución.
 
-```
-app.py                        → envoltura Streamlit
-Estado_Situacion_HFBC.html    → la presentación completa
-requirements.txt              → streamlit
-README.md
-```
+## Criterio de actualización
+
+Cada antecedente nuevo debe registrar, como mínimo:
+
+1. materia;
+2. fuente y fecha;
+3. hecho acreditado;
+4. estado de validación;
+5. próximo paso;
+6. responsable o instancia competente.
+
+Los borradores, correos y propuestas no deben presentarse como acuerdos
+definitivos. Las obligaciones contractuales y las decisiones del CTAR deben
+distinguirse de los antecedentes técnicos y de la coordinación institucional.
+
+## Última actualización
+
+**22 de julio de 2026 — Radiocomunicaciones HFBC**
+
+La visita técnica del 1 de julio de 2026 recomendó elevar al menos seis metros
+la antena HF utilizando los soportes existentes. La observación inicialmente
+informada respecto de la antena VHF fue dejada sin efecto, por corresponder a
+otro establecimiento. El próximo paso es formalizar el requerimiento mediante
+ordinario a la Inspección Fiscal y solicitar información sobre su programación.
 
 ## Despliegue
 
-1. Suba estos archivos al repositorio `barolaro/hfbc_estado`.
-2. En share.streamlit.io → Create app → Deploy from GitHub → rama `main`,
-   Main file path = `app.py`.
-
-## Sobre "Actualizar presentación"
-
-La función de actualizar guarda los cambios en el navegador (localStorage) y
-permite **descargar/importar** el estado como archivo. Los cambios quedan en el
-equipo y navegador donde se editan; para compartirlos, use la opción de descargar
-el archivo e importarlo en otro equipo.
+La aplicación se publica desde la rama `main` mediante Streamlit Cloud,
+utilizando `app.py` como archivo principal.
