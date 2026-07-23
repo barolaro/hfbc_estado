@@ -45,9 +45,25 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-html_file = Path(__file__).parent / "Presentacion_HFBC_actualizada_23-07-2026.html"
-if not html_file.is_file():
-    st.error(f"No fue posible cargar la presentación: falta {html_file.name}")
+base_dir = Path(__file__).parent
+preferidos = [
+    "Presentacion_HFBC_actualizada_23-07-2026.html",
+    "Estado_Situacion_HFBC.html",
+    "Presentacion_HFBC_actualizada_23-07-2026.html.html",
+    "Estado_Situacion_HFBC.html.html",
+]
+
+html_file = next(
+    (base_dir / nombre for nombre in preferidos if (base_dir / nombre).is_file()),
+    None,
+)
+
+if html_file is None:
+    disponibles = sorted(base_dir.glob("*.html")) + sorted(base_dir.glob("*.html.html"))
+    html_file = disponibles[0] if disponibles else None
+
+if html_file is None:
+    st.error("No fue posible cargar la presentación: no existe un archivo HTML en el repositorio.")
     st.stop()
 
 html_base = html_file.read_text(encoding="utf-8")
