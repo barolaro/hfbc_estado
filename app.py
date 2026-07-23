@@ -1,6 +1,6 @@
 """Estado de Situación HFBC — publicación ejecutiva oficial.
 
-La presentación base se mantiene en Estado_Situacion_HFBC.html y las
+La presentación base se mantiene en Presentacion_HFBC_actualizada_23-07-2026.html y las
 novedades institucionales se aplican desde actualizaciones.py. Esta
 separación permite mantener trazabilidad y actualizar contenidos sin alterar
 la estructura visual completa.
@@ -45,7 +45,11 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-html_file = Path(__file__).parent / "Estado_Situacion_HFBC.html"
+html_file = Path(__file__).parent / "Presentacion_HFBC_actualizada_23-07-2026.html"
+if not html_file.is_file():
+    st.error(f"No fue posible cargar la presentación: falta {html_file.name}")
+    st.stop()
+
 html_base = html_file.read_text(encoding="utf-8")
 html_actualizado = aplicar_actualizaciones(html_base)
 
