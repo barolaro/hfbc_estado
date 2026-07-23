@@ -29,7 +29,7 @@ distinguirse de los antecedentes técnicos y de la coordinación institucional.
 
 ## Última actualización
 
-**22 de julio de 2026 — Radiocomunicaciones HFBC**
+**23 de julio de 2026 — Actualización de la presentación HFBC**
 
 La visita técnica del 1 de julio de 2026 recomendó elevar al menos seis metros
 la antena HF utilizando los soportes existentes. La observación inicialmente
