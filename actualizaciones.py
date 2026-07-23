@@ -15,7 +15,7 @@ def aplicar_actualizaciones(html: str) -> str:
     cambios = [
         ('data-t="Operación hoy: 9 materias"', 'data-t="Operación hoy: 10 materias"'),
         ("Nueve Materias Críticas, Todas con Gestión Trazada", "Diez Materias Relevantes, Todas con Gestión Trazada"),
-        ("actualizado al 20 de julio de 2026.", "actualizado al 22 de julio de 2026."),
+        ("actualizado al 20 de julio de 2026.", f"actualizado al {FECHA_CORTE}."),\n        ("actualizado al 22 de julio de 2026.", f"actualizado al {FECHA_CORTE}."),
         (
             '<tr class="fila"><td>Filtraciones agua lluvia</td>',
             '<tr class="fila"><td>Radiocomunicaciones · Antena HF</td><td class="det">Visita técnica recomienda elevar la antena al menos seis metros utilizando los soportes existentes</td><td><span class="pill media">MEDIA</span></td><td><span class="pill gestion">POR FORMALIZAR</span></td><td class="chev">＋</td></tr>\n'
