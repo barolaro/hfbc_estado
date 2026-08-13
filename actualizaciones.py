@@ -171,6 +171,47 @@ def aplicar_actualizaciones(html: str) -> str:
         "El SSMOCC consolidó información dispersa, formalizó los principales riesgos y estructuró una cartera con responsable, estado y próximo hito. La prioridad ahora es transformar esa trazabilidad en decisiones oportunas y verificables.",
     )
 
+    # Estado de implementación de los instrumentos remitidos al Hospital.
+    html = _reemplazar(
+        html,
+        "La Formalización, Materializada: Nueve Instrumentos",
+        "Nueve Instrumentos: Estado de Implementación y Gestión",
+    )
+    html = _reemplazar(
+        html,
+        "Ordinarios de la Dirección del Servicio elaborados entre mayo y junio de 2026, que convierten los hallazgos y lecciones de este período en procedimientos, mecanismos de control y gestiones formales permanentes.",
+        "Instrumentos formalizados por la Dirección del Servicio: 2 implementados por el Hospital, 4 pendientes de implementación o respuesta y 3 casos que continúan en gestión ante las instancias competentes.",
+    )
+    implementados = (
+        "Control, resguardo, traslado y devolución de equipamiento concesionado",
+        "Coordinación institucional y conductos regulares",
+    )
+    for titulo in implementados:
+        html = _reemplazar(
+            html,
+            f'<div class="k azul">Procedimiento</div><h3>{titulo}</h3>',
+            f'<div class="k verde">✓ IMPLEMENTADO</div><h3><span style="color:#16835f">✓</span> {titulo}</h3>',
+        )
+
+    pendientes_hospital = (
+        "Modificaciones de contrato: procedimiento y requisitos",
+        "Consolidación y control de gastos por incumplimientos",
+        "Levantamiento y consolidación de antecedentes de explotación",
+        "Sumarios administrativos y resguardo del equipamiento",
+    )
+    for titulo in pendientes_hospital:
+        html = re.sub(
+            rf'<div class="k (?:azul|verde)">(?:Procedimiento|Control y datos)</div><h3>{re.escape(titulo)}</h3>',
+            f'<div class="k">PENDIENTE HOSPITAL</div><h3>{titulo}</h3>',
+            html,
+            count=1,
+        )
+    html = _reemplazar(
+        html,
+        'data-t="Nueve instrumentos institucionales"',
+        'data-t="Estado de nueve instrumentos"',
+    )
+
     # Peticiones concretas a MINSAL, sin agregar láminas.
     html = _reemplazar(html, "Seis Acciones para Anticipar los Años 8 y 10", "Hoja de Ruta Propuesta para los Años 8 y 10")
     html = _reemplazar(html, 'data-t="Seis acciones"', 'data-t="Hoja de ruta"')
