@@ -31,6 +31,11 @@ def aplicar_actualizaciones(html: str) -> str:
         ),
         "Hospital Félix Bulnes: Gestión Conjunta para Anticipar Riesgos y Acelerar Decisiones",
     )
+    html = _reemplazar(
+        html,
+        "Estado de Situación y Plan de Trabajo Conjunto",
+        "Gestión Conjunta: Prioridades y Decisiones",
+    )
     html = _reemplazar_variantes(
         html,
         (
@@ -50,6 +55,7 @@ def aplicar_actualizaciones(html: str) -> str:
 
     # Láminas de síntesis y gobernanza.
     html = _reemplazar(html, "El Panorama en 30 Segundos", "Tres Mensajes para la Decisión Institucional")
+    html = _reemplazar(html, 'data-t="Panorama en 30 segundos"', 'data-t="Tres mensajes para decisión"')
     html = _reemplazar(
         html,
         "Una visión compartida del contrato, las prioridades asistenciales y las materias que requieren coordinación para avanzar con oportunidad y trazabilidad.",
@@ -119,6 +125,7 @@ def aplicar_actualizaciones(html: str) -> str:
 
     # Casos que necesitan apoyo de nivel central.
     html = _reemplazar(html, "Cuatro Casos donde la Llave la Tienen Terceros", "Cuatro Materias que Requieren Articulación de Nivel Central")
+    html = _reemplazar(html, 'data-t="Casos en manos de terceros"', 'data-t="Articulación de nivel central"')
     html = _reemplazar(
         html,
         "En estos casos, el avance requiere pronunciamientos o decisiones de la DGC, MINSAL o de la gobernanza del contrato. La coordinación Hospital–Servicio permite sostener la prioridad y reforzar su seguimiento.",
@@ -140,12 +147,14 @@ def aplicar_actualizaciones(html: str) -> str:
 
     # Peticiones concretas a MINSAL, sin agregar láminas.
     html = _reemplazar(html, "Seis Acciones para Anticipar los Años 8 y 10", "Hoja de Ruta Propuesta para los Años 8 y 10")
+    html = _reemplazar(html, 'data-t="Seis acciones"', 'data-t="Hoja de ruta"')
     html = _reemplazar(
         html,
         "La evidencia no permite afirmar que el contrato sea inviable. Sí obliga a actuar preventivamente — y estas son las acciones concretas.",
         "La evidencia disponible no permite concluir que el contrato sea inviable. Sí justifica una acción preventiva coordinada, con definiciones contractuales, financieras y asistenciales antes de los años de mayor exigencia.",
     )
     html = _reemplazar(html, "Cinco Acuerdos para Convertir el Seguimiento en Avance", "Cinco Acuerdos Propuestos con MINSAL")
+    html = _reemplazar(html, 'data-t="Acuerdos propuestos para la mesa"', 'data-t="Acuerdos propuestos con MINSAL"')
     html = _reemplazar(
         html,
         "La reunión debe finalizar con prioridades compartidas, responsables identificados y un próximo hito verificable para cada materia.",
