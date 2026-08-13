@@ -312,6 +312,83 @@ def aplicar_actualizaciones(html: str) -> str:
         "Informar al Hospital cada cambio de estado y registrar acuerdo, responsable, documento de respaldo y gestión posterior hasta el cierre de cada materia.",
     )
 
+    # La antigua lámina de prototipo se transforma en un cierre de decisiones
+    # para MINSAL. Se conserva el número de láminas y se elimina el enlace al piloto.
+    html = _reemplazar(
+        html,
+        "Prueba Piloto: Seguimiento Institucional del Flujo CTAR",
+        "Cinco Definiciones para Salir de la Reunión con una Ruta Clara",
+    )
+    html = _reemplazar(
+        html,
+        'data-t="Piloto de seguimiento CTAR"',
+        'data-t="Definiciones para decisión"',
+    )
+    html = _reemplazar(
+        html,
+        "Respuesta del Servicio · transformación digital",
+        "MINSAL–SSMOCC · cierre ejecutivo",
+    )
+    html = _reemplazar(
+        html,
+        "Herramienta desarrollada para ordenar y visualizar el avance de las solicitudes remitidas por el Hospital, manteniendo una trazabilidad común para los integrantes del sector Salud.",
+        "La reunión será efectiva si cada prioridad queda asociada a una decisión, un responsable institucional y una fecha de revisión verificable.",
+    )
+    html = _reemplazar(
+        html,
+        "Propósito: disponer de una visión sencilla, actualizada y compartida del estado de cada materia, anticipar pendientes y facilitar la coordinación previa a las sesiones del Comité.",
+        "Regla de cierre: ninguna materia prioritaria queda solamente ‘en seguimiento’; cada una debe salir con una ruta y un próximo hito.",
+    )
+    html = _reemplazar(html, "Hospital envía", "Reposiciones críticas")
+    html = _reemplazar(
+        html,
+        "Ingresa la solicitud y sus antecedentes de respaldo.",
+        "Definir la ruta de hervidores, delantales plomados, autoclave y calzado.",
+    )
+    html = _reemplazar(html, "CTAR revisa", "Escenario financiero")
+    html = _reemplazar(
+        html,
+        "Verifica antecedentes técnicos y brechas de información.",
+        "Asignar responsable y fecha para proyectar los Años 8 y 10.",
+    )
+    html = _reemplazar(html, "CTAR acuerda", "Escalamiento sectorial")
+    html = _reemplazar(
+        html,
+        "Registra el pronunciamiento o las acciones pendientes.",
+        "Encaminar climatización, línea robótica, seguridad y saldos pendientes.",
+    )
+    html = _reemplazar(html, "Acta se firma", "Contrapartes designadas")
+    html = _reemplazar(
+        html,
+        "Formaliza el acuerdo adoptado por sus integrantes.",
+        "Nombrar referentes MINSAL y SSMOCC para un único canal de seguimiento.",
+    )
+    html = _reemplazar(html, "Proceso finaliza", "Próxima revisión")
+    html = _reemplazar(
+        html,
+        "Cierra el seguimiento o enlaza la gestión posterior que corresponda.",
+        "Acordar fecha, productos esperados y mecanismo de reporte ejecutivo.",
+    )
+    html = _reemplazar(html, "Valor institucional", "El SSMOCC aporta")
+    html = _reemplazar(
+        html,
+        "Permite informar oportunamente al Hospital, priorizar materias y consolidar una fuente de seguimiento común para Salud.",
+        "Diagnóstico, antecedentes, priorización, trazabilidad documental y seguimiento de cada compromiso.",
+    )
+    html = _reemplazar(html, "Alcance del piloto", "Se solicita a MINSAL")
+    html = _reemplazar(
+        html,
+        "Es una herramienta de apoyo a la gestión. No reemplaza las actas, los antecedentes formales, la SIC ni las competencias del CTAR y de la Inspección Fiscal.",
+        "Articulación sectorial, definición de contrapartes y apoyo para encaminar las decisiones que exceden el nivel local.",
+    )
+    html = re.sub(
+        r'<a[^>]+href="https://seguimiento-ctar\.streamlit\.app/?"[^>]*>.*?</a>',
+        "",
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
     # Cierre para una reunión con MINSAL.
     html = _reemplazar_variantes(
         html,
@@ -319,10 +396,36 @@ def aplicar_actualizaciones(html: str) -> str:
             "Una Cartera Exigente, con Prioridades Compartidas y Camino de Avance.",
             "Una Cartera Exigente, <em>con Prioridades Compartidas y Camino de Avance.</em>",
         ),
-        "Una Cartera Exigente, con Diagnóstico, Prioridades y una Ruta de Decisión Compartida.",
+        "El SSMOCC Llega con Diagnóstico; Hoy Necesitamos Definir la Ruta.",
+    )
+    html = _reemplazar(
+        html,
+        "El riesgo financiero mayor está cuantificado, con fuente oficial y años de anticipación",
+        "Las reposiciones críticas tienen estado conocido y un próximo paso identificable",
+    )
+    html = _reemplazar(
+        html,
+        "Los fondos existen, están confirmados por escrito y su habilitación está en gestión",
+        "El riesgo financiero es futuro: debe anticiparse antes de los Años 8 y 10",
+    )
+    html = _reemplazar(
+        html,
+        "Cada materia operacional prioritaria cuenta con responsable, estado y próximo paso",
+        "Las decisiones fuera del nivel local requieren ruta de escalamiento y fecha",
+    )
+    html = _reemplazar(
+        html,
+        "Hospital y Servicio disponen de una base común para validar prioridades y completar antecedentes",
+        "MINSAL y SSMOCC necesitan contrapartes identificadas y un canal único",
+    )
+    html = _reemplazar(
+        html,
+        "Los acuerdos propuestos permiten llegar mejor preparados al CTAR y mantener una comunicación periódica",
+        "El resultado esperado es simple: responsable, acción siguiente y fecha por cada prioridad",
     )
     html = _reemplazar(html, "Fuentes: actas CTAR N°81–148 y borrador Acta N.° 149", "Fuentes: actas CTAR N.° 81–150")
     html = _reemplazar(html, "Fuentes: actas CTAR N°81–148 y borrador Acta N.° 149 revisado al 23.07.2026", "Fuentes: actas CTAR N.° 81–150")
+    html = _reemplazar(html, "Fuentes: actas CTAR N.° 81–150 revisado al 23.07.2026", "Fuentes: actas CTAR N.° 81–150 revisadas al 12.08.2026")
 
     # Actualiza la fecha visible restante sin alterar fechas históricas de hitos.
     html = html.replace("· Julio 2026", "· Agosto 2026")
