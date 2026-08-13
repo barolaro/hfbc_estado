@@ -263,39 +263,54 @@ def aplicar_actualizaciones(html: str) -> str:
         "La evidencia no permite afirmar que el contrato sea inviable. Sí obliga a actuar preventivamente — y estas son las acciones concretas.",
         "La evidencia disponible no permite concluir que el contrato sea inviable. Sí justifica una acción preventiva coordinada, con definiciones contractuales, financieras y asistenciales antes de los años de mayor exigencia.",
     )
-    html = _reemplazar(html, "Cinco Acuerdos para Convertir el Seguimiento en Avance", "Cinco Acuerdos y un Compromiso de Trazabilidad")
-    html = _reemplazar(html, 'data-t="Acuerdos propuestos para la mesa"', 'data-t="Acuerdos con MINSAL"')
+    html = _reemplazar(html, "Cinco Acuerdos para Convertir el Seguimiento en Avance", "Acuerdos Solicitados a MINSAL: Responsables y Próximos Hitos")
+    html = _reemplazar(html, 'data-t="Acuerdos propuestos para la mesa"', 'data-t="Acuerdos solicitados a MINSAL"')
     html = _reemplazar(
         html,
         "La reunión debe finalizar con prioridades compartidas, responsables identificados y un próximo hito verificable para cada materia.",
-        "Se propone cerrar la reunión con prioridades compartidas, responsables institucionales y un próximo hito verificable para las materias que requieren apoyo o escalamiento sectorial.",
+        "La reunión debe cerrar con definiciones concretas: materia priorizada, responsable institucional, acción siguiente y fecha de revisión. El SSMOCC mantendrá la trazabilidad y reportará los avances por el conducto formal.",
     )
     html = _reemplazar(
         html,
         "una cartera única y priorizada, validada entre el Hospital y el Servicio, que permita llegar al CTAR con antecedentes completos y mantener informado al establecimiento durante toda la tramitación.",
-        "una cartera priorizada y compartida entre Hospital, SSMOCC y MINSAL, con antecedentes completos, responsables identificados y seguimiento de los hitos que dependan de instancias externas.",
+        "una hoja de ruta MINSAL–SSMOCC con responsables y fechas para las reposiciones urgentes, la sostenibilidad financiera y las decisiones pendientes de nivel central.",
     )
-    html = _reemplazar(html, "Validar prioridades", "Validar tres prioridades sectoriales")
+    html = _reemplazar(html, "Validar prioridades", "Priorizar reposiciones y materias urgentes")
     html = _reemplazar(
         html,
         "Confirmar cuáles materias requieren atención inmediata por continuidad asistencial, seguridad o impacto operacional.",
-        "Confirmar como focos: sostenibilidad del plan de reposiciones, materias con impacto asistencial y decisiones pendientes de nivel central.",
+        "Confirmar el tratamiento y próximo hito de hervidores, delantales plomados, autoclave de 600 litros y Ord. HFB N.° 1117 sobre calzado.",
     )
-    html = _reemplazar(html, "Completar antecedentes", "Cerrar brechas de antecedentes")
-    html = _reemplazar(html, "Asignar responsables", "Definir contrapartes MINSAL–SSMOCC")
+    html = _reemplazar(html, "Completar antecedentes", "Definir la ruta financiera de los Años 8 y 10")
+    html = _reemplazar(
+        html,
+        "Identificar EETT, informes técnicos, inventarios, bajas u otros respaldos pendientes antes de remitir cada caso.",
+        "Acordar quién elaborará el escenario de reposiciones, uso permitido de fondos, brecha residual y alternativas que requieran gestión ante DGC, MOP o DIPRES.",
+    )
+    html = _reemplazar(html, "Asignar responsables", "Acordar escalamiento de decisiones pendientes")
     html = _reemplazar(
         html,
         "Definir un referente del Hospital y uno del Servicio por materia, evitando solicitudes sin seguimiento claro.",
-        "Definir una contraparte MINSAL y una del SSMOCC para las materias priorizadas, manteniendo al Hospital como referente técnico-asistencial.",
+        "Definir la ruta y el hito de seguimiento para línea robótica, Seguridad y Vigilancia, climatización y saldo del Programa Gestión del Cambio.",
     )
-    html = _reemplazar(html, "Fijar próximos hitos", "Acordar hitos de escalamiento")
-    html = _reemplazar(html, "Revisión periódica", "Seguimiento mensual ejecutivo")
+    html = _reemplazar(html, "Fijar próximos hitos", "Designar contrapartes MINSAL–SSMOCC")
+    html = _reemplazar(
+        html,
+        "Registrar la acción siguiente, la instancia competente y una fecha de revisión, aun cuando el plazo dependa de terceros.",
+        "Nombrar un referente por institución para consolidar antecedentes, coordinar respuestas y evitar solicitudes paralelas o sin seguimiento.",
+    )
+    html = _reemplazar(html, "Revisión periódica", "Instalar seguimiento ejecutivo mensual")
     html = _reemplazar(
         html,
         "Realizar una revisión mensual de la cartera y utilizar el piloto CTAR como visualización común del estado de avance.",
-        "Revisar mensualmente la cartera priorizada y utilizar el piloto CTAR como fuente común de estado, sin reemplazar las actas ni los canales formales.",
+        "Revisar mensualmente la cartera con semáforo, responsable, acción siguiente y fecha; utilizar el piloto CTAR como apoyo, sin reemplazar actas ni canales formales.",
     )
-    html = _reemplazar(html, "Compromiso de información", "Trazabilidad de decisiones")
+    html = _reemplazar(html, "Compromiso de información", "Compromiso del SSMOCC: informar y cerrar el ciclo")
+    html = _reemplazar(
+        html,
+        "Mantener al Hospital informado sobre cambios de estado, acuerdos del CTAR, actas firmadas y gestiones posteriores.",
+        "Informar al Hospital cada cambio de estado y registrar acuerdo, responsable, documento de respaldo y gestión posterior hasta el cierre de cada materia.",
+    )
 
     # Cierre para una reunión con MINSAL.
     html = _reemplazar_variantes(
