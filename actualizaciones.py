@@ -339,6 +339,11 @@ def aplicar_actualizaciones(html: str) -> str:
         "Propósito: disponer de una visión sencilla, actualizada y compartida del estado de cada materia, anticipar pendientes y facilitar la coordinación previa a las sesiones del Comité.",
         "Regla de cierre: ninguna materia prioritaria queda solamente ‘en seguimiento’; cada una debe salir con una ruta y un próximo hito.",
     )
+    html = _reemplazar(
+        html,
+        "<b>Propósito:</b> disponer de una visión sencilla, actualizada y compartida del estado de cada materia, anticipar pendientes y facilitar la coordinación previa a las sesiones del Comité.",
+        "<b>Regla de cierre:</b> ninguna materia prioritaria queda solamente ‘en seguimiento’; cada una debe salir con una ruta y un próximo hito.",
+    )
     html = _reemplazar(html, "Hospital envía", "Reposiciones críticas")
     html = _reemplazar(
         html,
