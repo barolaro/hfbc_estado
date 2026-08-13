@@ -75,6 +75,16 @@ def aplicar_actualizaciones(html: str) -> str:
         "La oportunidad: estos antecedentes permiten acordar prioridades con el Hospital, ordenar los responsables y anticipar las decisiones que deberán gestionarse ante el CTAR, la Inspección Fiscal, la DGC y MINSAL.",
         "Objetivo de esta reunión: concordar prioridades, responsables y próximos hitos, resguardando las competencias del CTAR y de la Inspección Fiscal y fortaleciendo el acompañamiento de MINSAL en las materias que requieren escalamiento.",
     )
+    html = _reemplazar(
+        html,
+        "estos antecedentes permiten acordar prioridades con el Hospital, ordenar los responsables y anticipar las decisiones que deberán gestionarse ante el CTAR, la Inspección Fiscal, la DGC y MINSAL.",
+        "concordar prioridades, responsables y próximos hitos, fortaleciendo el acompañamiento de MINSAL en las materias que requieren escalamiento y resguardando las competencias del CTAR y de la Inspección Fiscal.",
+    )
+    html = _reemplazar(
+        html,
+        "y fue esta institución la que lo detectó, con la anticipación necesaria para gestionarlo.",
+        "y el SSMOC lo sistematizó con la anticipación necesaria para preparar su gestión institucional.",
+    )
     html = _reemplazar(html, "Cómo Funciona la Concesión del Hospital", "Gobernanza del Contrato: Quién Decide y Quién Destraba")
     html = _reemplazar(
         html,
@@ -116,6 +126,7 @@ def aplicar_actualizaciones(html: str) -> str:
         ),
         f"actualizado al {FECHA_CORTE}.",
     )
+    html = _reemplazar(html, "actualización 22 jul 2026", "actualización 12 ago 2026")
     html = _reemplazar(
         html,
         "<b>actualización CTAR N.° 149:</b>",
@@ -131,6 +142,12 @@ def aplicar_actualizaciones(html: str) -> str:
         "<b>actualización del borrador CTAR N.° 149:</b> registra 17 bajas prioritarias; aprueba las EETT y las bajas de inventario de los <b>tres hervidores industriales 60.045</b>; y consigna certificados de no objeción para mobiliario bariátrico y UCI",
         "<b>avance acreditado:</b> el Acta N.° 149 formalizó las bajas y EETT de los tres hervidores industriales 60.045. En la Sesión N.° 150, de 30.07.2026, el CTAR solicitó autorización excepcional y la Inspección Fiscal autorizó emitir CNO a la oferta Marsol; además, el Comité acordó CNO para ofertas de reposición de delantales plomados",
     )
+    html = _reemplazar(
+        html,
+        " · <b>hervidores:</b> la Inspección Fiscal informó que el 21.07.2026 solicitó a la Sociedad Concesionaria los antecedentes para continuar la reposición, con cinco días para responder. Ese plazo corresponde a la entrega de antecedentes, no a la disponibilidad de los equipos · <b>cautela:</b> los acuerdos se consideran provisionales mientras el acta no se encuentre aprobada y firmada.",
+        " · <b>próximo paso:</b> continuar la tramitación posterior al CNO por el conducto contractual y solicitar a la Inspección Fiscal el hito estimado de disponibilidad de los equipos.",
+    )
+    html = _reemplazar(html, ">SEGUIMIENTO CTAR<", ">ANTECEDENTES EN REVISIÓN<")
 
     # Casos que necesitan apoyo de nivel central.
     html = _reemplazar(html, "Cuatro Casos donde la Llave la Tienen Terceros", "Cuatro Materias que Requieren Articulación de Nivel Central")
@@ -162,12 +179,17 @@ def aplicar_actualizaciones(html: str) -> str:
         "La evidencia no permite afirmar que el contrato sea inviable. Sí obliga a actuar preventivamente — y estas son las acciones concretas.",
         "La evidencia disponible no permite concluir que el contrato sea inviable. Sí justifica una acción preventiva coordinada, con definiciones contractuales, financieras y asistenciales antes de los años de mayor exigencia.",
     )
-    html = _reemplazar(html, "Cinco Acuerdos para Convertir el Seguimiento en Avance", "Cinco Acuerdos Propuestos con MINSAL")
-    html = _reemplazar(html, 'data-t="Acuerdos propuestos para la mesa"', 'data-t="Acuerdos propuestos con MINSAL"')
+    html = _reemplazar(html, "Cinco Acuerdos para Convertir el Seguimiento en Avance", "Cinco Acuerdos y un Compromiso de Trazabilidad")
+    html = _reemplazar(html, 'data-t="Acuerdos propuestos para la mesa"', 'data-t="Acuerdos con MINSAL"')
     html = _reemplazar(
         html,
         "La reunión debe finalizar con prioridades compartidas, responsables identificados y un próximo hito verificable para cada materia.",
         "Se propone cerrar la reunión con prioridades compartidas, responsables institucionales y un próximo hito verificable para las materias que requieren apoyo o escalamiento sectorial.",
+    )
+    html = _reemplazar(
+        html,
+        "una cartera única y priorizada, validada entre el Hospital y el Servicio, que permita llegar al CTAR con antecedentes completos y mantener informado al establecimiento durante toda la tramitación.",
+        "una cartera priorizada y compartida entre Hospital, SSMOC y MINSAL, con antecedentes completos, responsables identificados y seguimiento de los hitos que dependan de instancias externas.",
     )
     html = _reemplazar(html, "Validar prioridades", "Validar tres prioridades sectoriales")
     html = _reemplazar(
@@ -177,6 +199,11 @@ def aplicar_actualizaciones(html: str) -> str:
     )
     html = _reemplazar(html, "Completar antecedentes", "Cerrar brechas de antecedentes")
     html = _reemplazar(html, "Asignar responsables", "Definir contrapartes MINSAL–SSMOC")
+    html = _reemplazar(
+        html,
+        "Definir un referente del Hospital y uno del Servicio por materia, evitando solicitudes sin seguimiento claro.",
+        "Definir una contraparte MINSAL y una del SSMOC para las materias priorizadas, manteniendo al Hospital como referente técnico-asistencial.",
+    )
     html = _reemplazar(html, "Fijar próximos hitos", "Acordar hitos de escalamiento")
     html = _reemplazar(html, "Revisión periódica", "Seguimiento mensual ejecutivo")
     html = _reemplazar(
