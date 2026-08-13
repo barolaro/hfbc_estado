@@ -129,6 +129,11 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(html, "actualización 22 jul 2026", "actualización 12 ago 2026")
     html = _reemplazar(
         html,
+        "operacionales prioritarias en gestión: 5 de prioridad alta, todas con trazabilidad y responsable",
+        "prioridades operacionales con trazabilidad; incluye reposiciones CTAR y nuevas materias recibidas del Hospital",
+    )
+    html = _reemplazar(
+        html,
         "<b>actualización CTAR N.° 149:</b>",
         "<b>actualización CTAR N.° 149 y N.° 150:</b>",
     )
@@ -148,6 +153,44 @@ def aplicar_actualizaciones(html: str) -> str:
         " · <b>próximo paso:</b> continuar la tramitación posterior al CNO por el conducto contractual y solicitar a la Inspección Fiscal el hito estimado de disponibilidad de los equipos.",
     )
     html = _reemplazar(html, ">SEGUIMIENTO CTAR<", ">ANTECEDENTES EN REVISIÓN<")
+
+    # Cartera actualizada: reposiciones CTAR y nuevo ordinario de calzado.
+    html = _reemplazar(html, "<td>Equipamiento clínico</td>", "<td>Reposiciones CTAR y vestuario</td>")
+    html = _reemplazar(
+        html,
+        "Fallas recurrentes, reparaciones lentas y reposiciones pendientes",
+        "Hervidores y delantales plomados con avances CTAR · Ord. HFB N.° 1117 sobre calzado en análisis",
+    )
+    html = _reemplazar(html, ">EN SEGUIMIENTO<", ">AVANCES / REVISIÓN<")
+    html = re.sub(
+        r'<tr class="exp"><td colspan="5"><b>Gestión:</b> doble vía — seguimiento por CTAR de cada solicitud.*?</td></tr>',
+        '<tr class="exp"><td colspan="5">'
+        '<b>Hervidores industriales 60.045:</b> el Acta CTAR N.° 149 formalizó las EETT y bajas de tres unidades. En la Sesión N.° 150, de 30.07.2026, la Inspección Fiscal autorizó excepcionalmente emitir CNO a la oferta Marsol; corresponde continuar la tramitación contractual posterior y solicitar el hito estimado de disponibilidad. · '
+        '<b>Delantales plomados:</b> las bajas individualizadas fueron aprobadas en CTAR N.° 149 y sus reposiciones revisadas en CTAR N.° 150; existen CNO emitidos o firmados para continuar las etapas siguientes. · '
+        '<b>Calzado institucional:</b> el Ord. HFB N.° 1117, recibido el 12.08.2026, solicita revisar antecedentes asociados a uniformes 2020–2021 y convalidación de calzado. Estado: análisis técnico-contractual para preparar respuesta a la Inspección Fiscal, sin pronunciamiento definitivo a esta fecha.'
+        '</td></tr>',
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+    html = _reemplazar(html, ">ORDINARIO EN ELABORACIÓN<", ">RECOMENDACIÓN FORMALIZADA<")
+    html = _reemplazar(
+        html,
+        "<b>próximo paso:</b> confeccionar el ordinario dirigido a la Inspección Fiscal y remitir previamente el borrador a Héctor Orrego para su revisión y visto bueno.",
+        "<b>estado:</b> recomendación técnica formalizada mediante el Ord. N.° 0896, considerando únicamente elevar al menos seis metros la antena HF con los soportes existentes · <b>próximo paso:</b> solicitar programación y seguimiento por el conducto contractual.",
+    )
+
+    # Refuerza la actualización 2026 en la cronología sin crear una nueva lámina.
+    html = _reemplazar(
+        html,
+        "registro de 17 bajas prioritarias y actualización de los representantes del Servicio.",
+        "registro de bajas prioritarias y actualización de los representantes del Servicio · CTAR N.° 150: CNO excepcional Marsol para hervidores y avance de CNO de delantales plomados · recepción del Ord. HFB N.° 1117 sobre calzado para análisis técnico-contractual.",
+    )
+    html = _reemplazar(
+        html,
+        "aprobación de EETT y bajas de tres hervidores industriales, certificados de no objeción para mobiliario bariátrico y UCI, y actualización de los representantes del Servicio.",
+        "aprobación de EETT y bajas de tres hervidores industriales, certificados de no objeción para mobiliario bariátrico y UCI y actualización de representantes · CTAR N.° 150: CNO excepcional Marsol para hervidores y avance de reposición de delantales plomados · Ord. HFB N.° 1117 sobre calzado en análisis.",
+    )
 
     # Casos que necesitan apoyo de nivel central.
     html = _reemplazar(html, "Cuatro Casos donde la Llave la Tienen Terceros", "Cuatro Materias que Requieren Articulación de Nivel Central")
