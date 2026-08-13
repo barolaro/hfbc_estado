@@ -14,7 +14,7 @@ import streamlit.components.v1 as components
 from actualizaciones import aplicar_actualizaciones
 
 st.set_page_config(
-    page_title="Estado de Situación HFBC",
+    page_title="HFBC | Presentación MINSAL",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="collapsed",
