@@ -6,7 +6,7 @@ láminas del HTML maestro.
 
 import re
 
-FECHA_CORTE = "12 de agosto de 2026"
+FECHA_CORTE = "13 de agosto de 2026"
 
 
 def _reemplazar(html: str, anterior: str, nuevo: str) -> str:
@@ -159,7 +159,7 @@ def aplicar_actualizaciones(html: str) -> str:
         ),
         f"actualizado al {FECHA_CORTE}.",
     )
-    html = _reemplazar(html, "actualización 22 jul 2026", "actualización 12 ago 2026")
+    html = _reemplazar(html, "actualización 22 jul 2026", "actualización 13 ago 2026")
     html = _reemplazar(
         html,
         "operacionales prioritarias en gestión: 5 de prioridad alta, todas con trazabilidad y responsable",
@@ -192,13 +192,19 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "Fallas recurrentes, reparaciones lentas y reposiciones pendientes",
-        "Hervidores y delantales plomados con avances CTAR · Ord. HFB N.° 1117 sobre calzado en análisis",
+        "Hervidores: 86 días desde el aviso del Hospital y aún sin disponibilidad · Delantales con avance CTAR · Calzado en análisis",
     )
     html = _reemplazar(html, ">EN SEGUIMIENTO<", ">AVANCES / REVISIÓN<")
     html = re.sub(
         r'<tr class="exp"><td colspan="5"><b>Gestión:</b> doble vía — seguimiento por CTAR de cada solicitud.*?</td></tr>',
         '<tr class="exp"><td colspan="5">'
-        '<b>Hervidores industriales 60.045:</b> el Acta CTAR N.° 149 formalizó las EETT y bajas de tres unidades. En la Sesión N.° 150, de 30.07.2026, la Inspección Fiscal autorizó excepcionalmente emitir CNO a la oferta Marsol; corresponde continuar la tramitación contractual posterior y solicitar el hito estimado de disponibilidad. · '
+        '<b>Hervidores industriales 60.045 — 86 días desde el aviso inicial y aún sin disponibilidad:</b><br>'
+        '<span style="display:inline-block;margin-top:8px"><b>19.05</b> Hospital informa por correo que las tres unidades están fuera de operación</span> → '
+        '<span><b>15.07</b> CTAR N.° 149 aprueba EETT y bajas</span> → '
+        '<span><b>21.07</b> Inspección Fiscal solicita cotización a la concesionaria</span> → '
+        '<span><b>30.07</b> CTAR N.° 150 autoriza avanzar con CNO de la oferta Marsol</span> → '
+        '<span style="color:#c94638"><b>13.08</b> equipos aún no disponibles en el Hospital</span>.<br>'
+        '<span style="display:inline-block;margin:8px 0 12px;color:#315f9e"><b>Lectura ejecutiva:</b> existe avance administrativo, pero todavía no se materializa la solución asistencial. Próximo hito requerido: fecha comprometida de compra, entrega e instalación.</span> · '
         '<b>Delantales plomados:</b> las bajas individualizadas fueron aprobadas en CTAR N.° 149 y sus reposiciones revisadas en CTAR N.° 150; existen CNO emitidos o firmados para continuar las etapas siguientes. · '
         '<b>Calzado institucional:</b> el Ord. HFB N.° 1117, recibido el 12.08.2026, solicita revisar antecedentes asociados a uniformes 2020–2021 y convalidación de calzado. Estado: análisis técnico-contractual para preparar respuesta a la Inspección Fiscal, sin pronunciamiento definitivo a esta fecha.'
         '</td></tr>',
@@ -463,7 +469,7 @@ def aplicar_actualizaciones(html: str) -> str:
     )
     html = _reemplazar(html, "Fuentes: actas CTAR N°81–148 y borrador Acta N.° 149", "Fuentes: actas CTAR N.° 81–150")
     html = _reemplazar(html, "Fuentes: actas CTAR N°81–148 y borrador Acta N.° 149 revisado al 23.07.2026", "Fuentes: actas CTAR N.° 81–150")
-    html = _reemplazar(html, "Fuentes: actas CTAR N.° 81–150 revisado al 23.07.2026", "Fuentes: actas CTAR N.° 81–150 revisadas al 12.08.2026")
+    html = _reemplazar(html, "Fuentes: actas CTAR N.° 81–150 revisado al 23.07.2026", "Fuentes: actas CTAR N.° 81–150 revisadas al 13.08.2026")
 
     # Actualiza la fecha visible restante sin alterar fechas históricas de hitos.
     html = html.replace("· Julio 2026", "· Agosto 2026")
