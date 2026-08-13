@@ -51,7 +51,7 @@ def aplicar_actualizaciones(html: str) -> str:
             "Contrato de concesión, prioridades asistenciales y seguimiento de materias operacionales.",
             "Contrato de concesión, salud financiera y operación de los servicios concesionados.",
         ),
-        "Prioridades asistenciales, sostenibilidad del equipamiento y decisiones que requieren articulación MINSAL–SSMOC.",
+        "Prioridades asistenciales, sostenibilidad del equipamiento y decisiones que requieren articulación MINSAL–SSMOCC.",
     )
     html = _reemplazar_variantes(
         html,
@@ -68,7 +68,7 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "Una visión compartida del contrato, las prioridades asistenciales y las materias que requieren coordinación para avanzar con oportunidad y trazabilidad.",
-        "El SSMOC cuenta con una cartera priorizada y trazable; el riesgo financiero principal es futuro y cuantificado; y existen decisiones específicas que requieren articulación con MINSAL, la Inspección Fiscal y la DGC.",
+        "El SSMOCC cuenta con una cartera priorizada y trazable; el riesgo financiero principal es futuro y cuantificado; y existen decisiones específicas que requieren articulación con MINSAL, la Inspección Fiscal y la DGC.",
     )
     html = _reemplazar(
         html,
@@ -83,13 +83,13 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "y fue esta institución la que lo detectó, con la anticipación necesaria para gestionarlo.",
-        "y el SSMOC lo sistematizó con la anticipación necesaria para preparar su gestión institucional.",
+        "y el SSMOCC lo sistematizó con la anticipación necesaria para preparar su gestión institucional.",
     )
     html = _reemplazar(html, "Cómo Funciona la Concesión del Hospital", "Gobernanza del Contrato: Quién Decide y Quién Destraba")
     html = _reemplazar(
         html,
         "Cinco actores, un contrato. Toque cada actor para ver su rol, su dato clave y qué le pide hoy el Servicio.",
-        "Cinco actores con competencias diferenciadas. La propuesta del SSMOC es ordenar el conducto regular, evitar duplicidades y escalar oportunamente las decisiones que exceden el ámbito local.",
+        "Cinco actores con competencias diferenciadas. La propuesta del SSMOCC es ordenar el conducto regular, evitar duplicidades y escalar oportunamente las decisiones que exceden el ámbito local.",
     )
 
     # Estado financiero: lenguaje estratégico y no alarmista.
@@ -155,7 +155,7 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "En estos casos, el avance requiere pronunciamientos o decisiones de la DGC, MINSAL o de la gobernanza del contrato. La coordinación Hospital–Servicio permite sostener la prioridad y reforzar su seguimiento.",
-        "El SSMOC ha levantado y formalizado los antecedentes disponibles. El avance requiere pronunciamientos o decisiones fuera de su competencia directa; por ello se propone acordar con MINSAL un mecanismo de escalamiento y seguimiento de hitos.",
+        "El SSMOCC ha levantado y formalizado los antecedentes disponibles. El avance requiere pronunciamientos o decisiones fuera de su competencia directa; por ello se propone acordar con MINSAL un mecanismo de escalamiento y seguimiento de hitos.",
     )
     html = _reemplazar(
         html,
@@ -163,12 +163,12 @@ def aplicar_actualizaciones(html: str) -> str:
         "En términos simples:</b> no se solicita sustituir a la Inspección Fiscal ni a la DGC. Se solicita reforzar la priorización sectorial, completar brechas de antecedentes y mantener seguimiento conjunto hasta obtener decisiones formales.",
     )
 
-    # Respuesta institucional del SSMOC.
-    html = _reemplazar(html, "Control del Dato, Formalización y Trazabilidad", "Respuesta del SSMOC: Control, Priorización y Trazabilidad")
+    # Respuesta institucional del SSMOCC.
+    html = _reemplazar(html, "Control del Dato, Formalización y Trazabilidad", "Respuesta del SSMOCC: Control, Priorización y Trazabilidad")
     html = _reemplazar(
         html,
         "La respuesta institucional no ha sido esperar: ha sido reconstruir la información, formalizar cada materia y dejar cada gestión con respaldo documental verificable.",
-        "El SSMOC consolidó información dispersa, formalizó los principales riesgos y estructuró una cartera con responsable, estado y próximo hito. La prioridad ahora es transformar esa trazabilidad en decisiones oportunas y verificables.",
+        "El SSMOCC consolidó información dispersa, formalizó los principales riesgos y estructuró una cartera con responsable, estado y próximo hito. La prioridad ahora es transformar esa trazabilidad en decisiones oportunas y verificables.",
     )
 
     # Peticiones concretas a MINSAL, sin agregar láminas.
@@ -189,7 +189,7 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "una cartera única y priorizada, validada entre el Hospital y el Servicio, que permita llegar al CTAR con antecedentes completos y mantener informado al establecimiento durante toda la tramitación.",
-        "una cartera priorizada y compartida entre Hospital, SSMOC y MINSAL, con antecedentes completos, responsables identificados y seguimiento de los hitos que dependan de instancias externas.",
+        "una cartera priorizada y compartida entre Hospital, SSMOCC y MINSAL, con antecedentes completos, responsables identificados y seguimiento de los hitos que dependan de instancias externas.",
     )
     html = _reemplazar(html, "Validar prioridades", "Validar tres prioridades sectoriales")
     html = _reemplazar(
@@ -198,11 +198,11 @@ def aplicar_actualizaciones(html: str) -> str:
         "Confirmar como focos: sostenibilidad del plan de reposiciones, materias con impacto asistencial y decisiones pendientes de nivel central.",
     )
     html = _reemplazar(html, "Completar antecedentes", "Cerrar brechas de antecedentes")
-    html = _reemplazar(html, "Asignar responsables", "Definir contrapartes MINSAL–SSMOC")
+    html = _reemplazar(html, "Asignar responsables", "Definir contrapartes MINSAL–SSMOCC")
     html = _reemplazar(
         html,
         "Definir un referente del Hospital y uno del Servicio por materia, evitando solicitudes sin seguimiento claro.",
-        "Definir una contraparte MINSAL y una del SSMOC para las materias priorizadas, manteniendo al Hospital como referente técnico-asistencial.",
+        "Definir una contraparte MINSAL y una del SSMOCC para las materias priorizadas, manteniendo al Hospital como referente técnico-asistencial.",
     )
     html = _reemplazar(html, "Fijar próximos hitos", "Acordar hitos de escalamiento")
     html = _reemplazar(html, "Revisión periódica", "Seguimiento mensual ejecutivo")
@@ -227,4 +227,6 @@ def aplicar_actualizaciones(html: str) -> str:
 
     # Actualiza la fecha visible restante sin alterar fechas históricas de hitos.
     html = html.replace("· Julio 2026", "· Agosto 2026")
+    # Normalización final para versiones históricas que aún contengan la sigla incompleta.
+    html = re.sub(r"\bSSMOC(?!C)\b", "SSMOCC", html)
     return html
