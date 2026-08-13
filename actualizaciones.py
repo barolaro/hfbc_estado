@@ -4,6 +4,8 @@ Actualiza textos y estados sin modificar la estructura, estilos ni número de
 láminas del HTML maestro.
 """
 
+import re
+
 FECHA_CORTE = "12 de agosto de 2026"
 
 
@@ -35,6 +37,13 @@ def aplicar_actualizaciones(html: str) -> str:
         html,
         "Estado de Situación y Plan de Trabajo Conjunto",
         "Gestión Conjunta: Prioridades y Decisiones",
+    )
+    html = re.sub(
+        r"(Hospital Félix Bulnes:\s*(?:<br\s*/?>)?\s*<em[^>]*>).*?(</em>)",
+        r"\1Gestión Conjunta: Prioridades y Decisiones\2",
+        html,
+        count=1,
+        flags=re.DOTALL,
     )
     html = _reemplazar_variantes(
         html,
