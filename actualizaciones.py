@@ -92,6 +92,39 @@ def aplicar_actualizaciones(html: str) -> str:
         "Cinco actores con competencias diferenciadas. La propuesta del SSMOCC es ordenar el conducto regular, evitar duplicidades y escalar oportunamente las decisiones que exceden el ámbito local.",
     )
 
+    # Explicación contractual simple e interactiva para una audiencia directiva.
+    # Conserva la navegación, el acordeón y el número total de láminas.
+    conceptos_simples = '''<section class="slide" data-sec="El contrato, explicado" data-q="¿Cómo funciona el contrato en términos simples?" data-t="El contrato, en simple">
+  <div class="franja"><i></i><i></i></div>
+  <div class="eyebrow">El contrato, explicado · 2 de 3</div>
+  <h1 class="titulo">El Contrato, en Seis Preguntas Simples</h1>
+  <p class="bajada">Seleccione una pregunta. Cada respuesta explica la regla, muestra un ejemplo del HFBC y señala por qué importa para la decisión.</p>
+  <div class="cuerpo" style="justify-content:flex-start">
+    <div class="acordeon" id="acordeon">
+      <div class="ac-item abierto"><div class="ac-cab"><span class="tag">1</span><b>¿Qué equipamiento debe financiar el contrato?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> el equipamiento incluido en el Anexo I, dentro del monto máximo definido para los 15 años.</div><p><b>Ejemplo HFBC:</b> las reposiciones programadas deben respetar ese listado y su presupuesto. Si el costo total supera el máximo, no se amplía automáticamente.</p><span class="dato">Para MINSAL: anticipar la ruta contractual y financiera antes de los años de mayor reposición.</span></div></div>
+      <div class="ac-item"><div class="ac-cab"><span class="tag">2</span><b>¿Por qué no se puede comprar todo de inmediato?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> cada año tiene un límite de inversión y un programa de compras que debe aprobarse.</div><p><b>Ejemplo HFBC:</b> la priorización de camas y otras reposiciones debe compatibilizar necesidad asistencial, programación anual y disponibilidad contractual.</p><span class="dato">Para MINSAL: apoyar una planificación anticipada de los Años 8 y 10.</span></div></div>
+      <div class="ac-item"><div class="ac-cab"><span class="tag">3</span><b>¿Los fondos disponibles resuelven automáticamente la brecha?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> no. Existen recursos, pero cada fondo tiene una finalidad y reglas de uso específicas.</div><p><b>Ejemplo HFBC:</b> antes de financiar reposiciones ordinarias con estos fondos se requiere una definición formal de la vía aplicable.</p><span class="dato">Para MINSAL: colaborar en la definición de la ruta con la Inspección Fiscal y la DGC.</span></div></div>
+      <div class="ac-item"><div class="ac-cab"><span class="tag">4</span><b>¿Quién decide sobre adquisiciones, reposiciones y bajas?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> el CTAR, mediante acuerdo unánime de la Inspección Fiscal, MINSAL y SSMOCC.</div><p><b>Ejemplo HFBC:</b> los hervidores y delantales plomados avanzaron mediante revisión, acuerdos y certificados de no objeción en el CTAR.</p><span class="dato">Para MINSAL: su participación permite validar y encaminar decisiones con respaldo sectorial.</span></div></div>
+      <div class="ac-item"><div class="ac-cab"><span class="tag">5</span><b>¿Cuándo puede retirarse un equipo?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> solo cuando se configura una de las ocho causales contractuales y la baja queda formalmente aprobada.</div><p><b>Ejemplo HFBC:</b> las bajas de hervidores y delantales fueron individualizadas y revisadas antes de continuar su reposición.</p><span class="dato">Para MINSAL: asegurar decisiones trazables y respaldadas, especialmente cuando interviene el criterio del Comité.</span></div></div>
+      <div class="ac-item"><div class="ac-cab"><span class="tag">6</span><b>¿Quién puede destrabar una decisión pendiente?</b><span class="mas">+</span></div>
+        <div class="ac-body"><div class="pensar"><b>Respuesta corta:</b> la Inspección Fiscal conduce la relación contractual; la DGC resuelve materias de nivel central.</div><p><b>Ejemplo HFBC:</b> climatización, línea robótica y otras materias requieren seguimiento fuera del ámbito de decisión directa del Hospital y del SSMOCC.</p><span class="dato">Para MINSAL: reforzar la prioridad sectorial y el seguimiento, sin sustituir las competencias del MOP.</span></div></div>
+    </div>
+    <span class="hint">◉ Interactivo — seleccione una pregunta para ver respuesta, ejemplo e implicancia</span>
+  </div>
+</section>'''
+    html = re.sub(
+        r'<section class="slide" data-sec="El contrato, explicado" data-q="¿Qué significan los conceptos clave\?" data-t="El contrato en 6 conceptos">.*?</section>',
+        conceptos_simples,
+        html,
+        count=1,
+        flags=re.DOTALL,
+    )
+
     # Estado financiero: lenguaje estratégico y no alarmista.
     html = _reemplazar(html, "El Costo Proyectado ya Supera el Tope del Contrato", "Riesgo Financiero Cuantificado: Existe Ventana para Actuar")
     html = _reemplazar(
