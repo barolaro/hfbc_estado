@@ -194,10 +194,10 @@ def aplicar_actualizaciones(html: str) -> str:
         "Fallas recurrentes, reparaciones lentas y reposiciones pendientes",
         "Hervidores: 86 días desde el aviso del Hospital y aún sin disponibilidad · Delantales con avance CTAR · Calzado en análisis",
     )
-    html = _reemplazar(html, ">EN SEGUIMIENTO<", ">AVANCES / REVISIÓN<")
+    html = _reemplazar(html, ">EN SEGUIMIENTO<", ">86 DÍAS · PENDIENTE<")
     html = re.sub(
         r'<tr class="exp"><td colspan="5"><b>Gestión:</b> doble vía — seguimiento por CTAR de cada solicitud.*?</td></tr>',
-        '<tr class="exp"><td colspan="5">'
+        '<tr class="exp visible"><td colspan="5">'
         '<div style="display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:12px">'
         '<b>Hervidores industriales 60.045 · ejemplo de trazabilidad</b>'
         '<span style="background:#c94638;color:white;border-radius:999px;padding:7px 13px;font-weight:800;white-space:nowrap">86 días · sin disponibilidad</span>'
