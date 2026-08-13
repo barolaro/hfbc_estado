@@ -36,11 +36,11 @@ def aplicar_actualizaciones(html: str) -> str:
     html = _reemplazar(
         html,
         "Estado de Situación y Plan de Trabajo Conjunto",
-        "Gestión Conjunta: Prioridades y Decisiones",
+        "Prioridades, Riesgos y Decisiones",
     )
     html = re.sub(
         r"(Hospital Félix Bulnes:\s*(?:<br\s*/?>)?\s*<em[^>]*>).*?(</em>)",
-        r"\1Gestión Conjunta: Prioridades y Decisiones\2",
+        r"\1Prioridades, Riesgos y Decisiones\2",
         html,
         count=1,
         flags=re.DOTALL,
