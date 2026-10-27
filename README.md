@@ -29,13 +29,13 @@ distinguirse de los antecedentes técnicos y de la coordinación institucional.
 
 ## Última actualización
 
-**23 de julio de 2026 — Actualización de la presentación HFBC**
+**27 de octubre de 2026 — Presentación ejecutiva CTAR para MINSAL**
 
-La visita técnica del 1 de julio de 2026 recomendó elevar al menos seis metros
-la antena HF utilizando los soportes existentes. La observación inicialmente
-informada respecto de la antena VHF fue dejada sin efecto, por corresponder a
-otro establecimiento. El próximo paso es formalizar el requerimiento mediante
-ordinario a la Inspección Fiscal y solicitar información sobre su programación.
+La presentación fue reducida a ocho láminas para explicar el CTAR a una
+audiencia no especializada. Cruza los Ordinarios HFB N.° 1085 y N.° 0172, las
+planillas de adquisiciones, reposiciones y SIC, y los acuerdos consignados en
+la minuta interinstitucional del 26 de octubre de 2026. Las cifras se presentan
+como universos distintos y sujetos a conciliación documental.
 
 ## Despliegue
 
