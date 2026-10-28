@@ -70,3 +70,5 @@ html_base = html_file.read_text(encoding="utf-8")
 html_actualizado = aplicar_actualizaciones(html_base)
 
 components.html(html_actualizado, height=920, scrolling=True)
+
+# Despliegue interactivo Anexo I b · 28.10.2026
