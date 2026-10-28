@@ -14,7 +14,7 @@ import streamlit.components.v1 as components
 from actualizaciones import aplicar_actualizaciones
 
 st.set_page_config(
-    page_title="CTAR HFBC | 3 diapositivas ejecutivas",
+    page_title="CTAR HFBC | 4 diapositivas ejecutivas",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="collapsed",
