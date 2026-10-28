@@ -14,7 +14,7 @@ import streamlit.components.v1 as components
 from actualizaciones import aplicar_actualizaciones
 
 st.set_page_config(
-    page_title="HFBC | Presentación MINSAL",
+    page_title="CTAR HFBC | 3 diapositivas ejecutivas",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -70,7 +70,3 @@ html_base = html_file.read_text(encoding="utf-8")
 html_actualizado = aplicar_actualizaciones(html_base)
 
 components.html(html_actualizado, height=920, scrolling=True)
-
-# Despliegue interactivo Anexo I b · 28.10.2026
-
-# Despliegue presentación ejecutiva de tres diapositivas · 28.10.2026
