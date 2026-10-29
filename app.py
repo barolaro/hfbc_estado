@@ -7,11 +7,14 @@ la estructura visual completa.
 """
 
 from pathlib import Path
+import importlib
 
 import streamlit as st
 import streamlit.components.v1 as components
 
-from actualizaciones import aplicar_actualizaciones
+import actualizaciones
+
+importlib.reload(actualizaciones)
 
 st.set_page_config(
     page_title="Reposición por Vida Útil | CTAR HFBC",
@@ -67,6 +70,6 @@ if html_file is None:
     st.stop()
 
 html_base = html_file.read_text(encoding="utf-8")
-html_actualizado = aplicar_actualizaciones(html_base)
+html_actualizado = actualizaciones.aplicar_actualizaciones(html_base)
 
 components.html(html_actualizado, height=1500, scrolling=True)
