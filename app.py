@@ -14,7 +14,7 @@ import streamlit.components.v1 as components
 from actualizaciones import aplicar_actualizaciones
 
 st.set_page_config(
-    page_title="CTAR HFBC | 4 diapositivas ejecutivas",
+    page_title="Reposición por Vida Útil | CTAR HFBC",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -69,4 +69,4 @@ if html_file is None:
 html_base = html_file.read_text(encoding="utf-8")
 html_actualizado = aplicar_actualizaciones(html_base)
 
-components.html(html_actualizado, height=920, scrolling=True)
+components.html(html_actualizado, height=1500, scrolling=True)
