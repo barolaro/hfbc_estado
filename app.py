@@ -14,6 +14,8 @@ import streamlit.components.v1 as components
 
 import actualizaciones
 
+DEPLOY_VERSION = "vu-dashboard-2026-10-29-01"
+
 importlib.reload(actualizaciones)
 
 st.set_page_config(
