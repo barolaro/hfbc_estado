@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Reposición por Vida Útil | Tablero CTAR HFBC</title>
+  <meta name="robots" content="noindex, nofollow">
   <meta name="description" content="Cruce entre el Plan CTAR y el registro del Hospital Dr. Félix Bulnes para la reposición por vida útil, con gestión de casos.">
   <link rel="icon" href="assets/logo-ssmocc.png" type="image/png">
   <link rel="stylesheet" href="assets/styles.css">
@@ -11,6 +12,23 @@
 <body>
   <a class="skip" href="#gestion">Ir al listado de casos</a>
 
+  <section class="login" id="login" aria-labelledby="login-title" hidden>
+    <div class="login-card">
+      <img src="assets/logo-ssmocc.png" width="88" height="80" alt="Servicio de Salud Metropolitano Occidente, Ministerio de Salud, Gobierno de Chile">
+      <h1 id="login-title">Reposición por Vida Útil</h1>
+      <p class="muted">Hospital Dr. Félix Bulnes · Tablero CTAR. Acceso restringido a personas autorizadas.</p>
+      <form id="login-form" autocomplete="on">
+        <label class="field"><span>Usuario</span><input name="usuario" autocomplete="username" autocapitalize="none" spellcheck="false" required maxlength="60"></label>
+        <label class="field"><span>Clave</span><input name="clave" type="password" autocomplete="current-password" required maxlength="200"></label>
+        <label class="field" id="login-codigo" hidden><span>Código de verificación (6 dígitos)</span><input name="codigo" inputmode="numeric" autocomplete="one-time-code" maxlength="7"></label>
+        <p class="form-error" id="login-error" role="alert" hidden></p>
+        <button type="submit" class="btn">Ingresar</button>
+      </form>
+      <p class="small muted">Los ingresos y cambios quedan registrados con su autor. Si no tiene usuario o olvidó su clave, solicítelo a la Subdirección de Recursos Físicos y Financieros.</p>
+    </div>
+  </section>
+
+  <div id="app" hidden>
   <header class="topbar">
     <div class="brand">
       <img src="assets/logo-ssmocc.png" width="64" height="58" alt="Servicio de Salud Metropolitano Occidente, Ministerio de Salud, Gobierno de Chile">
@@ -25,9 +43,13 @@
         <a href="https://drive.google.com/file/d/1fxfqmEiTu0rrMUzfoyPRakE3yw3x72FV/view?usp=drivesdk" target="_blank" rel="noopener">Ord. HFB N.º 1085<small>años 1, 2 y 3</small></a>
       </nav>
       <button type="button" class="btn" id="btn-present" aria-pressed="false">Modo proyección</button>
-      <button type="button" class="btn btn-ghost" id="btn-export">Exportar seguimiento</button>
-      <label class="btn btn-ghost" for="file-import">Importar seguimiento</label>
-      <input type="file" id="file-import" accept="application/json,.json" hidden>
+      <button type="button" class="btn btn-ghost" id="btn-new" hidden>Agregar equipo</button>
+      <button type="button" class="btn btn-ghost" id="btn-admin" hidden>Administración</button>
+      <div class="user" id="user-menu">
+        <span class="user-info"><b id="user-name"></b><small id="user-role"></small></span>
+        <button type="button" class="btn btn-ghost" id="btn-account">Mi cuenta</button>
+        <button type="button" class="btn btn-ghost" id="btn-logout">Salir</button>
+      </div>
     </div>
   </header>
 
@@ -75,7 +97,7 @@
       <div class="manage-head">
         <div>
           <h2 id="manage-title">Gestión de casos</h2>
-          <p class="muted">Registre responsable, plazo y próxima acción. El avance queda en este navegador; use Exportar seguimiento para compartirlo.</p>
+          <p class="muted">Registre responsable, plazo y próxima acción. Los cambios se guardan en el servidor y los ve todo el equipo, con su autor.</p>
         </div>
         <div class="view-switch" role="tablist" aria-label="Vista">
           <button type="button" role="tab" id="tab-table" aria-selected="true" aria-controls="view-table">Tabla</button>
@@ -123,14 +145,17 @@
 
   <footer class="foot">
     <p>Tablero de apoyo a la gestión. No reemplaza el acta CTAR, la SIC, los oficios ni el pronunciamiento de la Inspección Fiscal. Las diferencias de cobertura requieren conciliación documental y no acreditan por sí solas una obligación contractual.</p>
-    <p>Servicio de Salud Metropolitano Occidente · Subdirección de Recursos Físicos y Financieros · Versión del 29 de octubre de 2026</p>
+    <p>Servicio de Salud Metropolitano Occidente · Subdirección de Recursos Físicos y Financieros · Versión del 29 de octubre de 2026 · Acceso con usuario y clave</p>
   </footer>
+
+  </div>
 
   <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="case-name" role="dialog" aria-modal="true" tabindex="-1">
     <div class="drawer-inner" id="drawer-body"></div>
   </aside>
   <div class="scrim" id="scrim" hidden></div>
   <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <dialog class="modal" id="modal" aria-labelledby="modal-title"></dialog>
   <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
   <script type="module" src="assets/app.js"></script>

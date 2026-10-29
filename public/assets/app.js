@@ -1,6 +1,11 @@
 import { RESULTADOS, RESULTADO_POR_ID, ESTADOS, PRIORIDADES, INSTANCIAS } from './config.js';
 import { int, uf, pct, fecha, fechaHora, esc, norm, descargar, csv } from './format.js';
 import * as store from './store.js';
+import { llamar, enExpiracion } from './api.js';
+import * as modal from './modal.js';
+import * as sesion from './sesion.js';
+import * as admin from './admin.js';
+import { formularioEquipo, leerFormulario } from './equipos.js';
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const el = id => document.getElementById(id);
@@ -13,14 +18,16 @@ const state = {
   vista: 'tabla',
   abierto: null,
   disparador: null,
+  usuario: null,
 };
+
+const puedeEditar = () => ['admin', 'editor'].includes(state.usuario?.rol);
+const esAdmin = () => state.usuario?.rol === 'admin';
 
 /* ---------- Carga ---------- */
 
 async function cargar() {
-  const resp = await fetch('assets/data.json', { cache: 'no-cache' });
-  if (!resp.ok) throw new Error(`No se pudo cargar los datos (${resp.status}).`);
-  state.casos = await resp.json();
+  state.casos = (await llamar('GET', '/equipos')).equipos;
 }
 
 /* ---------- Derivados ---------- */
@@ -240,7 +247,7 @@ function renderTablero(lista) {
     const casos = porEstado[e];
     const tarjetas = casos.slice(0, LIMITE_COLUMNA).map(c => {
       const reg = store.obtener(c.codigo);
-      return `<article class="card" draggable="true" tabindex="0" data-codigo="${c.codigo}">
+      return `<article class="card" draggable="${puedeEditar()}" tabindex="0" data-codigo="${c.codigo}">
         <header><b>${c.codigo}</b>${chip(c.resultado)}</header>
         <p>${esc(c.equipo)}</p>
         <footer><span>${c.uf != null ? 'UF ' + uf(c.uf) : 'Sin valor en Plan'}</span>
@@ -250,7 +257,7 @@ function renderTablero(lista) {
     const resto = casos.length - LIMITE_COLUMNA;
     return `<section class="col" data-estado="${esc(e)}" aria-label="${esc(e)}">
       <h3><span class="step-n">${i + 1}</span>${esc(e)}<b>${int(casos.length)}</b></h3>
-      <div class="col-body">${tarjetas || '<p class="col-empty">Arrastre aquí un caso o cámbielo desde su ficha.</p>'}
+      <div class="col-body">${tarjetas || `<p class="col-empty">${puedeEditar() ? 'Arrastre aquí un caso o cámbielo desde su ficha.' : 'Sin casos en este paso.'}</p>`}
       ${resto > 0 ? `<p class="col-more">y ${int(resto)} más. Use los filtros para acotar.</p>` : ''}</div>
     </section>`;
   }).join('');
@@ -339,8 +346,13 @@ function renderFicha(codigo) {
         </dl>
       </details>
 
+      ${puedeEditar() ? `<div class="form-actions"><button type="button" class="btn btn-ghost" data-editar-equipo>Editar datos del equipo</button></div>` : ''}
+
       <form class="manage-form" id="manage-form" autocomplete="off">
         <h3>Seguimiento</h3>
+        ${puedeEditar() ? '' : '<p class="hint">Su perfil es de solo lectura. Puede consultar el seguimiento, pero no modificarlo.</p>'}
+        ${reg.actualizadoPor ? `<p class="muted small">Última actualización: ${fechaHora(reg.actualizado)} por ${esc(reg.actualizadoPor)}.</p>` : ''}
+        <fieldset ${puedeEditar() ? '' : 'disabled'}>
         <div class="form-grid">
           <label class="field"><span>Estado de gestión</span>
             <select name="estado">${ESTADOS.map((e, i) => `<option value="${esc(e)}"${(reg.estado || ESTADOS[0]) === e ? ' selected' : ''}>${i + 1}. ${esc(e)}</option>`).join('')}</select></label>
@@ -356,17 +368,16 @@ function renderFicha(codigo) {
             <textarea name="nota" rows="3" placeholder="Fuente, acuerdo, oficio o brecha pendiente de validación">${esc(reg.nota || '')}</textarea></label>
         </div>
         <datalist id="instancias">${INSTANCIAS.map(i => `<option value="${esc(i)}">`).join('')}</datalist>
-        <div class="form-actions">
+        </fieldset>
+        ${puedeEditar() ? `<div class="form-actions">
           <button type="submit" class="btn">Guardar seguimiento</button>
           <button type="button" class="btn btn-ghost" data-limpiar>Limpiar seguimiento</button>
         </div>
-        <p class="muted small">${store.disponible()
-          ? 'Se guarda en este navegador. Para compartirlo con otra persona, use Exportar seguimiento.'
-          : 'Este navegador bloquea el almacenamiento local: los cambios se perderán al cerrar la página. Exporte el seguimiento para conservarlo.'}</p>
+        <p class="muted small">Se guarda en el servidor y queda visible para todo el equipo, con su nombre de usuario.</p>` : ''}
       </form>
 
       ${hist.length ? `<section class="history"><h3>Historial</h3><ol>${hist.map(h => `
-        <li><time>${fechaHora(h.t)}</time><span>${esc(h.estado)}${h.responsable ? ' · ' + esc(h.responsable) : ''}</span>${h.accion ? `<em>${esc(h.accion)}</em>` : ''}</li>`).join('')}</ol></section>` : ''}
+        <li><time>${fechaHora(h.t)}${h.usuario ? ' · ' + esc(h.usuario) : ''}</time><span>${esc(h.estado)}${h.responsable ? ' · ' + esc(h.responsable) : ''}</span>${h.accion ? `<em>${esc(h.accion)}</em>` : ''}</li>`).join('')}</ol></section>` : ''}
     </div>
 
     <footer class="drawer-foot">
@@ -443,6 +454,7 @@ function descargarCSV() {
 function enlazarEventos() {
   document.addEventListener('click', e => {
     const t = e.target;
+    if (t.closest('#modal')) return void atenderModal(e);
     const tile = t.closest('.tile, .prio, tr[data-codigo], .card');
     if (tile && !t.closest('.card')?.classList.contains('dragging')) {
       return abrirFicha(Number(tile.dataset.codigo), tile);
@@ -471,10 +483,11 @@ function enlazarEventos() {
     if (t.closest('#btn-all-gaps')) return aplicarFiltro({ resultado: BRECHA }, { irAGestion: true });
     if (t.closest('#btn-clear')) return aplicarFiltro({ q: '', resultado: '', ctar: '', anio: '', gestion: '' });
     if (t.closest('#btn-csv')) return descargarCSV();
-    if (t.closest('#btn-export')) {
-      descargar('seguimiento_reposicion_vu_hfbc.json', store.exportarJSON(), 'application/json');
-      return aviso('Seguimiento exportado');
-    }
+    if (t.closest('#btn-new')) return abrirEquipo(null);
+    if (t.closest('#btn-admin')) return admin.abrirAdmin(state.usuario);
+    if (t.closest('#btn-account')) return sesion.abrirCuenta(state.usuario);
+    if (t.closest('#btn-logout')) return void sesion.salir().then(() => location.reload());
+    if (t.closest('[data-editar-equipo]')) return abrirEquipo(state.casos.find(c => c.codigo === state.abierto));
     if (t.closest('#btn-present')) return alternarProyeccion();
     if (t.closest('[data-cerrar]') || t.id === 'scrim') return cerrarFicha();
     const nav = t.closest('[data-nav]');
@@ -486,8 +499,7 @@ function enlazarEventos() {
     }
     if (t.closest('[data-limpiar]') && state.abierto != null) {
       if (confirm('¿Eliminar el seguimiento registrado para esta tipología?')) {
-        store.limpiar(state.abierto);
-        aviso('Seguimiento limpiado');
+        store.limpiar(state.abierto).then(() => aviso('Seguimiento limpiado')).catch(fallo);
       }
     }
   });
@@ -514,18 +526,28 @@ function enlazarEventos() {
       e.preventDefault();
       abrirFicha(Number(e.target.dataset.codigo), e.target);
     }
-    if (e.key === 'Tab' && state.abierto != null) atraparFoco(e);
+    if (e.key === 'Tab' && state.abierto != null && !modal.abierto()) atraparFoco(e);
   });
 
-  el('drawer').addEventListener('submit', e => {
+  el('drawer').addEventListener('submit', async e => {
     e.preventDefault();
+    if (!puedeEditar()) return;
     const datos = Object.fromEntries(new FormData(e.target));
-    const cambio = store.guardar(state.abierto, {
-      estado: datos.estado, prioridad: datos.prioridad, responsable: datos.responsable.trim(),
-      fecha: datos.fecha, accion: datos.accion.trim(), nota: datos.nota.trim(),
-    });
-    aviso(cambio ? 'Seguimiento guardado' : 'Sin cambios que guardar');
+    try {
+      const cambio = await store.guardar(state.abierto, {
+        estado: datos.estado, prioridad: datos.prioridad, responsable: datos.responsable.trim(),
+        fecha: datos.fecha, accion: datos.accion.trim(), nota: datos.nota.trim(),
+      });
+      aviso(cambio ? 'Seguimiento guardado' : 'Sin cambios que guardar');
+    } catch (err) { fallo(err); }
   });
+
+  el('modal').addEventListener('submit', async e => {
+    if (await sesion.manejarEnvio(e, state.usuario, u => { state.usuario = u; aplicarUsuario(); }, aviso)) return;
+    if (await admin.manejarEnvio(e, aviso)) return;
+    if (e.target.id === 'form-equipo') { e.preventDefault(); guardarEquipo(e.target); }
+  });
+  el('modal').addEventListener('change', e => { admin.manejarEnvio(e, aviso); });
 
   // Tooltip de casillas
   const mapa = el('tilemap');
@@ -551,35 +573,91 @@ function enlazarEventos() {
     tablero.querySelectorAll('.col.over').forEach(c => c !== col && c.classList.remove('over'));
     col.classList.add('over');
   });
-  tablero.addEventListener('drop', e => {
+  tablero.addEventListener('drop', async e => {
     const col = e.target.closest('.col');
     if (!col) return;
     e.preventDefault();
+    if (!puedeEditar()) return;
     const codigo = Number(e.dataTransfer.getData('text/plain'));
     if (store.estadoDe(codigo) !== col.dataset.estado) {
-      store.guardar(codigo, { estado: col.dataset.estado });
-      aviso(`Caso ${codigo} movido a «${col.dataset.estado}»`);
+      try {
+        await store.guardar(codigo, { estado: col.dataset.estado });
+        aviso(`Caso ${codigo} movido a «${col.dataset.estado}»`);
+      } catch (err) { fallo(err); }
     } else {
       renderGestion();
-    }
-  });
-
-  // Importar seguimiento
-  el('file-import').addEventListener('change', async e => {
-    const archivo = e.target.files[0];
-    e.target.value = '';
-    if (!archivo) return;
-    try {
-      const n = store.importarJSON(await archivo.text());
-      aviso(n ? `Se incorporaron ${n} seguimientos` : 'El archivo no traía seguimientos más recientes');
-    } catch (err) {
-      aviso(`No se pudo importar: ${err.message}`);
     }
   });
 
   document.addEventListener('fullscreenchange', () => {
     if (!document.fullscreenElement) salirProyeccion();
   });
+}
+
+/* ---------- Equipos y ventanas ---------- */
+
+const fallo = err => aviso(err.message || 'No se pudo completar la operación.');
+
+function aplicarUsuario() {
+  const u = state.usuario;
+  el('user-name').textContent = u.nombre;
+  el('user-role').textContent = sesion.ROLES[u.rol];
+  el('btn-new').hidden = !puedeEditar();
+  el('btn-admin').hidden = !esAdmin();
+}
+
+function abrirEquipo(caso) {
+  if (!puedeEditar()) return;
+  modal.abrir({
+    titulo: caso ? `Editar equipo ${caso.codigo}` : 'Agregar equipo',
+    ancho: 'lg',
+    cuerpo: formularioEquipo(state.casos, caso) + (caso && esAdmin()
+      ? `<div class="peligro"><p class="small muted">Eliminar quita el equipo del cruce. Queda registrado en la auditoría.</p>
+         <button type="button" class="btn btn-ghost btn-peligro" data-eliminar-equipo="${caso.codigo}">Eliminar equipo</button></div>` : ''),
+  });
+}
+
+function reemplazarEquipo(eq) {
+  const i = state.casos.findIndex(c => c.codigo === eq.codigo);
+  if (i >= 0) state.casos[i] = eq; else state.casos.push(eq);
+  poblarFiltros();
+}
+
+async function guardarEquipo(form) {
+  const error = el('form-equipo-error');
+  error.hidden = true;
+  const cuerpo = leerFormulario(form);
+  const codigo = form.dataset.codigo;
+  try {
+    const r = codigo
+      ? await llamar('PUT', `/equipos/${codigo}`, { ...cuerpo, version: Number(form.dataset.version) })
+      : await llamar('POST', '/equipos', cuerpo);
+    reemplazarEquipo(r.equipo);
+    modal.cerrar();
+    aviso(codigo ? 'Equipo actualizado' : `Equipo ${r.equipo.codigo} agregado`);
+    renderTodo();
+  } catch (err) {
+    if (err.estado === 409 && err.extra.actual) { reemplazarEquipo(err.extra.actual); renderTodo(); }
+    error.textContent = err.message;
+    error.hidden = false;
+  }
+}
+
+async function atenderModal(e) {
+  if (await sesion.manejarClick(e, state.usuario)) return;
+  if (await admin.manejarClick(e, aviso)) return;
+  const del = e.target.closest('[data-eliminar-equipo]');
+  if (del && confirm(`¿Eliminar el equipo ${del.dataset.eliminarEquipo} del cruce?`)) {
+    try {
+      await llamar('DELETE', `/equipos/${del.dataset.eliminarEquipo}`);
+      state.casos = state.casos.filter(c => String(c.codigo) !== del.dataset.eliminarEquipo);
+      modal.cerrar();
+      cerrarFicha();
+      poblarFiltros();
+      renderTodo();
+      aviso('Equipo eliminado');
+    } catch (err) { fallo(err); }
+  }
 }
 
 function atraparFoco(e) {
@@ -611,21 +689,81 @@ function salirProyeccion() {
   el('btn-present').setAttribute('aria-pressed', 'false');
 }
 
-/* ---------- Inicio ---------- */
+/* ---------- Inicio y sesión ---------- */
 
-async function iniciar() {
-  store.iniciar();
+let eventosListos = false;
+let reingresando = false;
+let ultimaCarga = 0;
+
+async function cargarTodo() {
+  await Promise.all([store.iniciar(), cargar()]);
+  ultimaCarga = Date.now();
+  poblarFiltros();
+  aplicarUsuario();
+  el('app').hidden = false;
+  if (!eventosListos) {
+    eventosListos = true;
+    store.suscribir(renderTodo);
+  }
+  renderTodo();
+}
+
+async function entrar(usuario, aviso) {
+  state.usuario = usuario || await sesion.pedirIngreso(aviso);
+  if (state.usuario.debeCambiarClave) {
+    await sesion.exigirCambioClave(state.usuario);
+    state.usuario.debeCambiarClave = false;
+  }
   try {
-    await cargar();
+    await cargarTodo();
   } catch (err) {
+    el('app').hidden = false;
     el('overview-title').textContent = 'No se pudieron cargar los datos del cruce.';
     el('overview-sub').textContent = `${err.message} Actualice la página; si el problema continúa, avise a la Subdirección de Recursos Físicos y Financieros.`;
-    return;
   }
-  poblarFiltros();
+}
+
+// Si la sesión vence, se vuelve a pedir el ingreso sin perder el lugar.
+async function reingresar(mensaje) {
+  if (reingresando) return;
+  reingresando = true;
+  cerrarFicha();
+  modal.cerrar();
+  state.filtros = { q: '', resultado: '', ctar: '', anio: '', gestion: '' };
+  await entrar(null, mensaje);
+  reingresando = false;
+}
+
+// Trae los cambios de otras personas cuando la ventana está en uso y no hay nada abierto.
+async function refrescar() {
+  if (reingresando || !state.usuario || document.hidden || state.abierto != null || modal.abierto()) return;
+  if (Date.now() - ultimaCarga < 45_000) return;
+  try {
+    await Promise.all([store.recargar({ notificar: false }), cargar()]);
+    ultimaCarga = Date.now();
+    poblarFiltros();
+    renderTodo();
+  } catch { /* se reintenta en el próximo ciclo */ }
+}
+
+async function iniciar() {
+  modal.iniciarModal();
   enlazarEventos();
-  store.suscribir(renderTodo);
-  renderTodo();
+  enExpiracion(() => reingresar('Su sesión expiró. Ingrese nuevamente.'));
+  let usuario = null;
+  try {
+    usuario = (await llamar('GET', '/me')).usuario;
+  } catch (err) {
+    if (err.estado !== 401) {
+      el('app').hidden = false;
+      el('overview-title').textContent = 'No se pudo conectar con el servidor.';
+      el('overview-sub').textContent = err.message;
+      return;
+    }
+  }
+  await entrar(usuario);
+  setInterval(refrescar, 60_000);
+  document.addEventListener('visibilitychange', refrescar);
 }
 
 iniciar();

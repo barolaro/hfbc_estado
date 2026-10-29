@@ -29,16 +29,3 @@ export const ESTADOS = [
 export const PRIORIDADES = ['Alta', 'Media', 'Baja'];
 
 export const INSTANCIAS = ['Hospital', 'CTAR', 'IF/AIF', 'DGC', 'SSMOCC', 'MINSAL', 'Concesionaria'];
-
-export const STORAGE_KEY = 'hfbc-vu-gestion-v2';
-export const STORAGE_KEY_V1 = 'hfbc-reposicion-vu-gestion-v1';
-
-// Estados del registro v1 (versión anterior del tablero) -> estados actuales.
-export const MIGRACION_ESTADOS = {
-  'Pendiente de antecedentes': 'Sin iniciar',
-  'En conciliación': 'En conciliación',
-  'En revisión CTAR': 'En revisión CTAR',
-  'Derivado a Inspección Fiscal': 'Derivado a IF/DGC',
-  'En ejecución': 'En ejecución',
-  'Cerrado con respaldo': 'Cerrado con respaldo',
-};
