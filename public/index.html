@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Reposición por Vida Útil | Tablero CTAR HFBC</title>
+  <meta name="description" content="Cruce entre el Plan CTAR y el registro del Hospital Dr. Félix Bulnes para la reposición por vida útil, con gestión de casos.">
+  <link rel="icon" href="assets/logo-ssmocc.png" type="image/png">
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+  <a class="skip" href="#gestion">Ir al listado de casos</a>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/logo-ssmocc.png" width="64" height="58" alt="Servicio de Salud Metropolitano Occidente, Ministerio de Salud, Gobierno de Chile">
+      <div class="brand-text">
+        <h1>Reposición por Vida Útil</h1>
+        <p>Hospital Dr. Félix Bulnes · Cruce entre el Plan CTAR y el registro del Hospital</p>
+      </div>
+    </div>
+    <div class="actions" role="toolbar" aria-label="Acciones del tablero">
+      <nav class="docs" aria-label="Respaldos documentales">
+        <a href="https://drive.google.com/file/d/1WXGfEURnx26CNv4BJ9dR5xyAvkQc3gNc/view?usp=drivesdk" target="_blank" rel="noopener">Ord. HFB N.º 0172<small>años 3, 4 y 5</small></a>
+        <a href="https://drive.google.com/file/d/1fxfqmEiTu0rrMUzfoyPRakE3yw3x72FV/view?usp=drivesdk" target="_blank" rel="noopener">Ord. HFB N.º 1085<small>años 1, 2 y 3</small></a>
+      </nav>
+      <button type="button" class="btn" id="btn-present" aria-pressed="false">Modo proyección</button>
+      <button type="button" class="btn btn-ghost" id="btn-export">Exportar seguimiento</button>
+      <label class="btn btn-ghost" for="file-import">Importar seguimiento</label>
+      <input type="file" id="file-import" accept="application/json,.json" hidden>
+    </div>
+  </header>
+
+  <main id="main">
+    <noscript><p class="noscript">Este tablero necesita JavaScript habilitado para mostrar el cruce y la gestión de casos.</p></noscript>
+
+    <section class="overview" aria-labelledby="overview-title">
+      <div class="overview-main">
+        <h2 id="overview-title" class="lead">Cargando el cruce…</h2>
+        <p class="lead-sub" id="overview-sub"></p>
+
+        <div class="tilemap-wrap">
+          <div id="tilemap" class="tilemap" role="group" aria-label="Una casilla por cada tipología. Seleccione una casilla para abrir su ficha."></div>
+          <div id="legend" class="legend" role="group" aria-label="Filtrar por resultado del cruce"></div>
+        </div>
+      </div>
+
+      <aside class="overview-side" aria-label="Cifras del cruce">
+        <dl class="figures" id="figures"></dl>
+        <div class="progress-card">
+          <h3>Avance de gestión</h3>
+          <div class="progress" id="progress" role="img" aria-label=""></div>
+          <p id="progress-text" class="muted"></p>
+        </div>
+      </aside>
+    </section>
+
+    <section class="insights" aria-label="Lectura del cruce">
+      <div class="panel" id="priority-panel">
+        <div class="panel-head">
+          <h3>Qué conciliar primero</h3>
+          <button type="button" class="link" id="btn-all-gaps"></button>
+        </div>
+        <ol class="priority" id="priority"></ol>
+      </div>
+      <div class="panel" id="ctar-panel">
+        <div class="panel-head">
+          <h3>Situación de cada tipología en el CTAR</h3>
+        </div>
+        <div id="ctar-bars" class="bars" role="group" aria-label="Filtrar por situación CTAR"></div>
+      </div>
+    </section>
+
+    <section class="manage" id="gestion" aria-labelledby="manage-title">
+      <div class="manage-head">
+        <div>
+          <h2 id="manage-title">Gestión de casos</h2>
+          <p class="muted">Registre responsable, plazo y próxima acción. El avance queda en este navegador; use Exportar seguimiento para compartirlo.</p>
+        </div>
+        <div class="view-switch" role="tablist" aria-label="Vista">
+          <button type="button" role="tab" id="tab-table" aria-selected="true" aria-controls="view-table">Tabla</button>
+          <button type="button" role="tab" id="tab-board" aria-selected="false" aria-controls="view-board">Tablero</button>
+        </div>
+      </div>
+
+      <ol class="steps" id="steps" aria-label="Ruta de gestión"></ol>
+
+      <div class="filters">
+        <label class="field grow">
+          <span>Buscar</span>
+          <input type="search" id="f-q" placeholder="Código o nombre del equipo" autocomplete="off">
+        </label>
+        <label class="field">
+          <span>Cruce</span>
+          <select id="f-result"></select>
+        </label>
+        <label class="field">
+          <span>Situación CTAR</span>
+          <select id="f-ctar"></select>
+        </label>
+        <label class="field">
+          <span>Año i b)</span>
+          <select id="f-year"></select>
+        </label>
+        <button type="button" class="btn btn-ghost" id="btn-clear">Limpiar filtros</button>
+        <button type="button" class="btn btn-ghost" id="btn-csv">Descargar CSV</button>
+      </div>
+      <p class="muted summary" id="summary" aria-live="polite"></p>
+
+      <div id="view-table" role="tabpanel" aria-labelledby="tab-table">
+        <div class="table-wrap">
+          <table class="grid">
+            <thead id="thead"></thead>
+            <tbody id="rows"></tbody>
+          </table>
+        </div>
+      </div>
+      <div id="view-board" role="tabpanel" aria-labelledby="tab-board" hidden>
+        <div class="board" id="board"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <p>Tablero de apoyo a la gestión. No reemplaza el acta CTAR, la SIC, los oficios ni el pronunciamiento de la Inspección Fiscal. Las diferencias de cobertura requieren conciliación documental y no acreditan por sí solas una obligación contractual.</p>
+    <p>Servicio de Salud Metropolitano Occidente · Subdirección de Recursos Físicos y Financieros · Versión del 29 de octubre de 2026</p>
+  </footer>
+
+  <aside class="drawer" id="drawer" aria-hidden="true" aria-labelledby="case-name" role="dialog" aria-modal="true" tabindex="-1">
+    <div class="drawer-inner" id="drawer-body"></div>
+  </aside>
+  <div class="scrim" id="scrim" hidden></div>
+  <div class="tooltip" id="tooltip" role="tooltip" hidden></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="assets/app.js"></script>
+</body>
+</html>

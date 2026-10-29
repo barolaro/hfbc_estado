@@ -1,0 +1,10 @@
+# Vercel publica solo public/. El resto es la aplicación Streamlit y archivos de trabajo.
+api/
+app.py
+actualizaciones.py
+requirements.txt
+data/
+uploads/
+.devcontainer/
+Presentacion_HFBC_actualizada_23-07-2026.html.html
+index.html

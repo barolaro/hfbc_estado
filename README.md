@@ -1,43 +1,31 @@
-# Estado de Situación HFBC — repositorio oficial
+# Estado de Situación HFBC
 
-Repositorio oficial de la presentación ejecutiva del Contrato de Concesión del
-Hospital Dr. Félix Bulnes Cerda, elaborada para el seguimiento institucional del
-Servicio de Salud Metropolitano Occidente.
+Repositorio del Servicio de Salud Metropolitano Occidente para el seguimiento del
+Contrato de Concesión del Hospital Dr. Félix Bulnes Cerda.
 
-## Arquitectura
+## Tablero «Reposición por Vida Útil» (Vercel)
 
-- `app.py`: publicación y configuración de la aplicación Streamlit.
-- `Estado_Situacion_HFBC.html`: presentación ejecutiva autónoma.
-- `actualizaciones.py`: capa trazable para incorporar nuevos antecedentes sin
-  reconstruir el archivo maestro.
-- `requirements.txt`: dependencias de ejecución.
+Sitio estático en `public/`, sin Python ni paso de compilación:
 
-## Criterio de actualización
+- `index.html`: estructura de la página.
+- `assets/app.js`, `config.js`, `store.js`, `format.js`: lógica del tablero (módulos ES).
+- `assets/styles.css`: estilos, modo proyección e impresión.
+- `assets/data.json`: cruce de las 117 tipologías (Plan CTAR vs. registro del Hospital).
+- `assets/logo-ssmocc.png`: logo institucional.
 
-Cada antecedente nuevo debe registrar, como mínimo:
+Qué hace: muestra el cruce con una casilla por tipología, prioriza las brechas y permite
+gestionar cada caso (estado, responsable, plazo, próxima acción, historial) en la misma
+página, en vista de tabla o tablero. El seguimiento se guarda en el navegador; para compartirlo
+entre personas se usa «Exportar seguimiento» e «Importar seguimiento» (archivo JSON).
 
-1. materia;
-2. fuente y fecha;
-3. hecho acreditado;
-4. estado de validación;
-5. próximo paso;
-6. responsable o instancia competente.
+Para actualizar el cruce basta reemplazar `public/assets/data.json` y publicar en `main`.
+Prueba local: `cd public && python3 -m http.server 8000`.
 
-Los borradores, correos y propuestas no deben presentarse como acuerdos
-definitivos. Las obligaciones contractuales y las decisiones del CTAR deben
-distinguirse de los antecedentes técnicos y de la coordinación institucional.
+Vercel publica solo `public/` (ver `vercel.json` y `.vercelignore`).
 
-## Última actualización
+## Presentación ejecutiva (Streamlit)
 
-**27 de octubre de 2026 — Presentación ejecutiva CTAR para MINSAL**
-
-La presentación fue reducida a ocho láminas para explicar el CTAR a una
-audiencia no especializada. Cruza los Ordinarios HFB N.° 1085 y N.° 0172, las
-planillas de adquisiciones, reposiciones y SIC, y los acuerdos consignados en
-la minuta interinstitucional del 26 de octubre de 2026. Las cifras se presentan
-como universos distintos y sujetos a conciliación documental.
-
-## Despliegue
-
-La aplicación se publica desde la rama `main` mediante Streamlit Cloud,
-utilizando `app.py` como archivo principal.
+`app.py`, `actualizaciones.py` y `Presentacion_HFBC_actualizada_23-07-2026.html.html`
+siguen intactos y se publican en Streamlit Cloud desde `main`. Cada antecedente nuevo debe
+registrar materia, fuente y fecha, hecho acreditado, estado de validación, próximo paso y
+responsable. Los borradores y propuestas no se presentan como acuerdos definitivos.
