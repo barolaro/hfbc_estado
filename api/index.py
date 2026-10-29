@@ -1,4 +1,4 @@
-"""Entrada web para Vercel del dashboard HFBC."""
+"""Entrada web para Vercel del dashboard HFBC."""\n\nVERCEL_RELEASE = "2026-10-29-01"
 
 from http.server import BaseHTTPRequestHandler
 
