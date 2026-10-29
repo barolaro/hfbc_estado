@@ -1,10 +1,10 @@
-# Vercel publica solo public/. El resto es la aplicación Streamlit y archivos de trabajo.
-/api
+# Vercel publica public/ y las funciones de /api (con /lib). El resto es la app Streamlit y archivos de trabajo.
 /app.py
 /actualizaciones.py
 /requirements.txt
 /data
 /uploads
+/test
 /.devcontainer
 /Presentacion_HFBC_actualizada_23-07-2026.html.html
 /index.html
