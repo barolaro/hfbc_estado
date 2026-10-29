@@ -56,4 +56,10 @@ let activeCase=null;const storageKey='hfbc-reposicion-vu-gestion-v1';const loadM
 })();
 </script>
 '''
-    return anterior.replace("</body>", mejora.replace("'+logo+'", logo) + "</body>")
+    pagina = anterior.replace("</body>", mejora.replace("'+logo+'", logo) + "</body>")
+    return pagina.replace(
+        "<head><meta charset",
+        '<head><meta http-equiv="Cache-Control" content="no-store, max-age=0">'
+        '<meta http-equiv="Pragma" content="no-cache"><meta charset',
+        1,
+    )
