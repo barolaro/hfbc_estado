@@ -1,20 +1,25 @@
 """Estado de Situación HFBC — publicación ejecutiva oficial.
 
-La presentación base se mantiene en Estado_Situacion_HFBC.html y las
+La presentación base se mantiene en Presentacion_HFBC_actualizada_23-07-2026.html y las
 novedades institucionales se aplican desde actualizaciones.py. Esta
 separación permite mantener trazabilidad y actualizar contenidos sin alterar
 la estructura visual completa.
 """
 
 from pathlib import Path
+import importlib
 
 import streamlit as st
 import streamlit.components.v1 as components
 
-from actualizaciones import aplicar_actualizaciones
+import actualizaciones
+
+DEPLOY_VERSION = "vu-dashboard-2026-10-29-01"
+
+importlib.reload(actualizaciones)
 
 st.set_page_config(
-    page_title="Estado de Situación HFBC",
+    page_title="Reposición por Vida Útil | CTAR HFBC",
     page_icon="🏥",
     layout="wide",
     initial_sidebar_state="collapsed",
@@ -45,8 +50,28 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
-html_file = Path(__file__).parent / "Estado_Situacion_HFBC.html"
-html_base = html_file.read_text(encoding="utf-8")
-html_actualizado = aplicar_actualizaciones(html_base)
+base_dir = Path(__file__).parent
+preferidos = [
+    "Presentacion_HFBC_actualizada_23-07-2026.html",
+    "Estado_Situacion_HFBC.html",
+    "Presentacion_HFBC_actualizada_23-07-2026.html.html",
+    "Estado_Situacion_HFBC.html.html",
+]
 
-components.html(html_actualizado, height=920, scrolling=True)
+html_file = next(
+    (base_dir / nombre for nombre in preferidos if (base_dir / nombre).is_file()),
+    None,
+)
+
+if html_file is None:
+    disponibles = sorted(base_dir.glob("*.html")) + sorted(base_dir.glob("*.html.html"))
+    html_file = disponibles[0] if disponibles else None
+
+if html_file is None:
+    st.error("No fue posible cargar la presentación: no existe un archivo HTML en el repositorio.")
+    st.stop()
+
+html_base = html_file.read_text(encoding="utf-8")
+html_actualizado = actualizaciones.aplicar_actualizaciones(html_base)
+
+components.html(html_actualizado, height=1500, scrolling=True)
